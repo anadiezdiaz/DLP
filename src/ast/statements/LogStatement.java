@@ -5,11 +5,12 @@ import ast.Statement;
 
 import java.util.List;
 
-public class LogStatement extends AbstractUnaryExpressionStatement{
+public class LogStatement extends AbstractExpressionStatement{
     List<Expression> expressions;
 
-    public LogStatement(int line, int column, Expression expression) {
-        super(line, column, expression);
+    public LogStatement(int line, int column, List<Expression> expressions) {
+        super(line, column);
+        this.expressions = expressions;
     }
 
     public List<Expression> getExpressions() {

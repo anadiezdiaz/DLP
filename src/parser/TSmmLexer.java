@@ -1,5 +1,12 @@
 // Generated from C:/Users/UO288302/IdeaProjects/DLP/src/parser/TSmm.g4 by ANTLR 4.13.2
 package parser;
+
+import ast.definitions.*;
+import ast.expressions.*;
+import ast.statements.*;
+import ast.types.*;
+import ast.*;
+
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;

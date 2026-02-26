@@ -4,15 +4,9 @@ import ast.Definition;
 import ast.Statement;
 import ast.Type;
 
-public class VarDefinition extends AbstractDefinition {
-    Statement statement;
+public class VarDefinition extends AbstractDefinition implements Statement{
 
-    public VarDefinition(int line, int column, String name, Type type, Statement statement) {
+    public VarDefinition(int line, int column, String name, Type type) {
         super(line, column, name, type);
-        this.statement = statement;
-    }
-
-    public Statement getStatement(){
-        return this.statement;
     }
 }

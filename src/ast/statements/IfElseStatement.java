@@ -10,8 +10,10 @@ public class IfElseStatement extends AbstractUnaryExpressionStatement{
     List<Statement> ifBody;
     List<Statement> elseBody;
 
-    public IfElseStatement(int line, int column, Expression condition) {
+    public IfElseStatement(int line, int column, Expression condition, List<Statement> ifBody, List<Statement> elseBody) {
         super(line, column, condition);
+        this.ifBody = ifBody;
+        this.elseBody = elseBody;
     }
 
     public List<Statement> getIfBody() {
