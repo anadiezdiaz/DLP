@@ -1,2 +1,28 @@
+function p:void(){
+	a = b;
+	let c:int;
+}
+function hola(): void{
+	let matrix: [
+        let values: [10]int;
+        let letters: [5]char;
+    ];
+    let people: [5][
+        let age: int;
+        let initial: char;
+    ];
+}
+function main(): void{
+    let i,j:void; // no
+    if(foo)
+        a = 2;
 
+    let vector[10][5]:int; 
 
+    let i,j:int;
+    let vector:[10] [
+       let integer: int;
+       let character: char;
+       let vector:[10]int;
+     ];
+}

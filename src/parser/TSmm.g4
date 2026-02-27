@@ -57,13 +57,19 @@ expression returns [Expression ast]:
     ;
 type returns [Type ast]:
     '[' INT_CONSTANT ']' type {$ast = new ArrayType(LexerHelper.lexemeToInt($INT_CONSTANT.text), $type.ast);}
-    | '[' recordFields+ ']' {$ast = new RecordType($recordFields.ast);}
+    | '[' (recordFields{$ast = new RecordType($recordFields.ast);})+ ']'
     | 'int' {$ast = IntType.getInstance();}
     | 'number' {$ast = NumberType.getInstance();}
     | 'char' {$ast = CharType.getInstance();}
     ;
-recordFields returns [List<RecordField> ast = new ArrayList<RecordField>()]:
-    'let' ID1=ID ':' t1=type ';' {$ast.add(new RecordField($ID1.text, $t1.ast));}
+recordFields returns [List<RecordField> ast = new ArrayList<RecordField>()] locals [List<VarDefinition> vars = new ArrayList<VarDefinition>()]:
+    (var_definition{$vars.addAll($var_definition.ast);})+
+    {
+        for(VarDefinition v : $vars)
+        {
+            $ast.add(new RecordField(v.getName(), v.getType()));
+        }
+    }
     ;
 statement returns [List<Statement> ast = new ArrayList<Statement>();] locals [List<Statement> elseList = new ArrayList<Statement>()]:
     log='log' expression_list ';' {$ast.add(new LogStatement($log.getLine(), $log.getCharPositionInLine()+1,$expression_list.ast));}
