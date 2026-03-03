@@ -6,6 +6,7 @@ import ast.expressions.*;
 import ast.statements.*;
 import ast.types.*;
 import ast.*;
+import errorhandler.*;
 }
 
 program returns [Program ast] locals [List<Definition> defs = new ArrayList<Definition>()]:
@@ -19,7 +20,12 @@ var_definition returns [List<VarDefinition> ast = new ArrayList<VarDefinition>()
     {
         for(Variable v : $vars)
         {
-            $ast.add(new VarDefinition(v.getLine(), v.getColumn(), v.getName(), $t1.ast));
+            VarDefinition var = new VarDefinition(v.getLine(), v.getColumn(), v.getName(), $t1.ast);
+            if($ast.contains(var)){
+                new ErrorType(v.getLine(), v.getColumn(), v.getName());
+            }else{
+                $ast.add(var);
+            }
         }
     }
     ;
@@ -67,7 +73,12 @@ recordFields returns [List<RecordField> ast = new ArrayList<RecordField>()] loca
     {
         for(VarDefinition v : $vars)
         {
-            $ast.add(new RecordField(v.getName(), v.getType()));
+            RecordField rf = new RecordField(v.getName(), v.getType());
+            if($ast.contains(rf)){
+                new ErrorType(v.getLine(), v.getColumn(), v.getName());
+            }else{
+                $ast.add(rf);
+            }
         }
     }
     ;

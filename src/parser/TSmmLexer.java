@@ -6,6 +6,7 @@ import ast.expressions.*;
 import ast.statements.*;
 import ast.types.*;
 import ast.*;
+import errorhandler.*;
 
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;

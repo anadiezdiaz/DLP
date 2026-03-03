@@ -6,6 +6,7 @@ import ast.expressions.*;
 import ast.statements.*;
 import ast.types.*;
 import ast.*;
+import errorhandler.*;
 
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -311,7 +312,12 @@ public class TSmmParser extends Parser {
 
 			        for(Variable v : _localctx.vars)
 			        {
-			            _localctx.ast.add(new VarDefinition(v.getLine(), v.getColumn(), v.getName(), ((Var_definitionContext)_localctx).t1.ast));
+			            VarDefinition var = new VarDefinition(v.getLine(), v.getColumn(), v.getName(), ((Var_definitionContext)_localctx).t1.ast);
+			            if(_localctx.ast.contains(var)){
+			                new ErrorType(v.getLine(), v.getColumn(), v.getName());
+			            }else{
+			                _localctx.ast.add(var);
+			            }
 			        }
 			    
 			}
@@ -1073,7 +1079,12 @@ public class TSmmParser extends Parser {
 
 			        for(VarDefinition v : _localctx.vars)
 			        {
-			            _localctx.ast.add(new RecordField(v.getName(), v.getType()));
+			            RecordField rf = new RecordField(v.getName(), v.getType());
+			            if(_localctx.ast.contains(rf)){
+			                new ErrorType(v.getLine(), v.getColumn(), v.getName());
+			            }else{
+			                _localctx.ast.add(rf);
+			            }
 			        }
 			    
 			}
