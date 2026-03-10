@@ -22,4 +22,5 @@ public class FunctionInvocation extends AbstractExpression implements Statement{
     public Variable getVariable() {
         return this.variable;
     }
+
 }
