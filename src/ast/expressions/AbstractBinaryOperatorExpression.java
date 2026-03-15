@@ -3,7 +3,7 @@ package ast.expressions;
 import ast.Expression;
 import ast.statements.AbstractBinaryExpressionStatement;
 
-public class AbstractBinaryOperatorExpression extends AbstractBinaryExpression {
+public abstract class AbstractBinaryOperatorExpression extends AbstractBinaryExpression {
     String operator;
 
     public AbstractBinaryOperatorExpression(int line, int column, Expression left, Expression right, String operator) {

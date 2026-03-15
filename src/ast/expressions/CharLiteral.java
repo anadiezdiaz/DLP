@@ -1,5 +1,7 @@
 package ast.expressions;
 
+import semantic.Visitor;
+
 public class CharLiteral extends AbstractExpression {
     char value;
 
@@ -10,5 +12,9 @@ public class CharLiteral extends AbstractExpression {
 
     public char getValue() {
         return this.value;
+    }
+
+    public<TP, TR> TR accept(Visitor<TP, TR> v, TP tp) {
+        return v.visit(this, tp);
     }
 }

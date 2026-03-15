@@ -3,6 +3,7 @@ package ast.types;
 import ast.AbstractLocatable;
 import ast.Type;
 import ast.definitions.VarDefinition;
+import semantic.Visitor;
 
 import java.util.List;
 
@@ -22,4 +23,9 @@ public class FunctionType implements Type {
     public List<VarDefinition> getParameters(){
         return this.parameters;
     }
+
+    public<TP, TR> TR accept(Visitor<TP, TR> v, TP tp) {
+        return v.visit(this, tp);
+    }
+
 }

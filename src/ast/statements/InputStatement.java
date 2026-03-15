@@ -2,6 +2,7 @@ package ast.statements;
 
 import ast.Expression;
 import ast.Statement;
+import semantic.Visitor;
 
 import java.util.List;
 
@@ -15,5 +16,9 @@ public class InputStatement extends AbstractExpressionStatement {
 
     public List<Expression> getExpressions() {
         return expressions;
+    }
+
+    public<TP, TR> TR accept(Visitor<TP, TR> v, TP tp) {
+        return v.visit(this, tp);
     }
 }

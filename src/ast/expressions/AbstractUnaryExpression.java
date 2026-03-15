@@ -2,7 +2,7 @@ package ast.expressions;
 
 import ast.Expression;
 
-public class AbstractUnaryExpression extends AbstractExpression{
+public abstract class AbstractUnaryExpression extends AbstractExpression{
     Expression expression;
 
     public AbstractUnaryExpression(int line, int column, Expression expression) {

@@ -2,6 +2,7 @@ package ast.types;
 
 import ast.AbstractLocatable;
 import ast.Type;
+import semantic.Visitor;
 
 public class IntType implements Type {
     private static IntType instance;
@@ -12,4 +13,9 @@ public class IntType implements Type {
         }
         return instance;
     }
+
+    public<TP, TR> TR accept(Visitor<TP, TR> v, TP tp) {
+        return v.visit(this, tp);
+    }
+
 }

@@ -2,6 +2,7 @@ package ast.types;
 
 import ast.AbstractLocatable;
 import ast.Type;
+import semantic.Visitor;
 
 import java.util.Objects;
 
@@ -33,4 +34,9 @@ public class RecordField implements Type {
     public int hashCode() {
         return Objects.hash(name);
     }
+
+    public<TP, TR> TR accept(Visitor<TP, TR> v, TP tp) {
+        return v.visit(this, tp);
+    }
+
 }

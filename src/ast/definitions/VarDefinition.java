@@ -4,6 +4,7 @@ import ast.Definition;
 import ast.Statement;
 import ast.Type;
 import ast.types.RecordField;
+import semantic.Visitor;
 
 import java.util.Objects;
 
@@ -23,5 +24,9 @@ public class VarDefinition extends AbstractDefinition implements Statement{
     @Override
     public int hashCode() {
         return Objects.hash(name);
+    }
+
+    public<TP, TR> TR accept(Visitor<TP, TR> v, TP tp) {
+        return v.visit(this, tp);
     }
 }

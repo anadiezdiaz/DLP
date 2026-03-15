@@ -1,6 +1,7 @@
 package ast.expressions;
 
 import ast.Expression;
+import semantic.Visitor;
 
 public class IntLiteral extends AbstractExpression {
     int value;
@@ -12,5 +13,9 @@ public class IntLiteral extends AbstractExpression {
 
     public int getValue() {
         return this.value;
+    }
+
+    public<TP, TR> TR accept(Visitor<TP, TR> v, TP tp) {
+        return v.visit(this, tp);
     }
 }

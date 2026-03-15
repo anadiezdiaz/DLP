@@ -2,6 +2,7 @@ package ast.statements;
 
 import ast.Expression;
 import ast.Statement;
+import semantic.Visitor;
 
 import java.util.List;
 
@@ -16,4 +17,9 @@ public class WhileStatement extends AbstractUnaryExpressionStatement{
     public List<Statement> getBody() {
         return this.body;
     }
+
+    public<TP, TR> TR accept(Visitor<TP, TR> v, TP tp) {
+        return v.visit(this, tp);
+    }
+
 }

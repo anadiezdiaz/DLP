@@ -3,7 +3,7 @@ package ast.expressions;
 import ast.AbstractLocatable;
 import ast.Expression;
 
-public class AbstractExpression extends AbstractLocatable implements Expression {
+public abstract class AbstractExpression extends AbstractLocatable implements Expression {
     boolean lvalue;
 
     public AbstractExpression(int line, int column) {

@@ -45,6 +45,7 @@ public interface Visitor<TP, TR> {
     TR visit (FunctionType f, TP p);
     TR visit (IntType i, TP p);
     TR visit (NumberType n, TP p);
+    TR visit (RecordField r, TP p);
     TR visit (RecordType r, TP p);
     TR visit (VoidType v, TP p);
 }

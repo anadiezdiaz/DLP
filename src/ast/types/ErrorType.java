@@ -4,6 +4,7 @@ import ast.AbstractLocatable;
 import ast.Locatable;
 import ast.Type;
 import errorhandler.ErrorHandler;
+import semantic.Visitor;
 
 public class ErrorType extends AbstractLocatable implements Type {
     private final String messageString;
@@ -22,6 +23,10 @@ public class ErrorType extends AbstractLocatable implements Type {
 
     public String getMessageString() {
         return messageString;
+    }
+
+    public<TP, TR> TR accept(Visitor<TP, TR> v, TP tp) {
+        return v.visit(this, tp);
     }
 
     @Override

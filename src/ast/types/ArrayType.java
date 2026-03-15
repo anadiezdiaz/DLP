@@ -2,6 +2,7 @@ package ast.types;
 
 import ast.AbstractLocatable;
 import ast.Type;
+import semantic.Visitor;
 
 public class ArrayType implements Type {
     Type type;
@@ -18,5 +19,9 @@ public class ArrayType implements Type {
 
     public Type getType(){
         return this.type;
+    }
+
+    public<TP, TR> TR accept(Visitor<TP, TR> v, TP tp) {
+        return v.visit(this, tp);
     }
 }

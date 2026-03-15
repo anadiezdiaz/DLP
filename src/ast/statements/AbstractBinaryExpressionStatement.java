@@ -2,7 +2,7 @@ package ast.statements;
 
 import ast.Expression;
 
-public class AbstractBinaryExpressionStatement extends AbstractExpressionStatement{
+public abstract class AbstractBinaryExpressionStatement extends AbstractExpressionStatement{
     Expression left, right;
 
     public AbstractBinaryExpressionStatement(int line, int column, Expression left, Expression right) {

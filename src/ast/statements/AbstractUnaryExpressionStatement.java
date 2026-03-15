@@ -4,8 +4,9 @@ import ast.AbstractLocatable;
 import ast.Expression;
 import ast.Statement;
 import ast.statements.AbstractExpressionStatement;
+import semantic.Visitor;
 
-public class AbstractUnaryExpressionStatement extends AbstractExpressionStatement {
+public abstract class AbstractUnaryExpressionStatement extends AbstractExpressionStatement {
     Expression expression;
 
     public AbstractUnaryExpressionStatement(int line, int column, Expression expression) {

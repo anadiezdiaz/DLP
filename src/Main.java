@@ -5,6 +5,7 @@ import introspector.view.IntrospectorView;
 import errorhandler.ErrorHandler;
 import parser.TSmmLexer;
 import parser.TSmmParser;
+import semantic.LValueVisitor;
 import semantic.TypeCheckingVisitor;
 import semantic.Visitor;
 
@@ -25,8 +26,7 @@ public class Main {
 		TSmmParser parser = new TSmmParser(tokens);
 		Program ast = parser.program().ast;
 
-		Visitor lValueVisitor = null; //TODO: instanciate a new LValueVisitor
-		ast.accept(ast, null);	  //Incorrect use of the Visitor pattern, Fix it!
+		ast.accept(new LValueVisitor(), null);
 
 		// * Check errors
 		if(ErrorHandler.getInstance().anyError()){

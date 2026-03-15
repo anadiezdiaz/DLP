@@ -4,7 +4,7 @@ import ast.AbstractLocatable;
 import ast.Definition;
 import ast.Type;
 
-public class AbstractDefinition extends AbstractLocatable implements Definition {
+public abstract class AbstractDefinition extends AbstractLocatable implements Definition {
     String name;
     Type type;
 
