@@ -57,6 +57,7 @@ public class LValueVisitor<TP, TR> extends AbstractVisitor<Void, Void>{
     @Override
     public Void visit(FunctionInvocation f, Void p) {
         super.visit(f, p);
+        //f.getVariable().setLValue(false);
         f.setLValue(false);
         return null;
     }

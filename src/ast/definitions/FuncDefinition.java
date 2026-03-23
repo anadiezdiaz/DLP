@@ -3,6 +3,7 @@ package ast.definitions;
 import ast.Definition;
 import ast.Statement;
 import ast.Type;
+import ast.types.FunctionType;
 import semantic.Visitor;
 
 import java.util.List;

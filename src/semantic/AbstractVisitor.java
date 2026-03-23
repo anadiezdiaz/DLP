@@ -21,6 +21,7 @@ public class AbstractVisitor<TP, TR> implements Visitor<TP, TR> {
 
     @Override
     public TR visit(FuncDefinition f, TP p) {
+        f.getType().accept(this, p);
         for(Statement s : f.getStatements()){
             s.accept(this, p);
         }
