@@ -5,15 +5,15 @@ import ast.Type;
 import semantic.Visitor;
 
 public class Cast extends AbstractUnaryExpression{
-    Type type;
+    Type castType;
 
-    public Cast(int line, int column, Expression expression, Type type) {
+    public Cast(int line, int column, Expression expression, Type castType) {
         super(line, column, expression);
-        this.type = type;
+        this.castType = castType;
     }
 
-    public Type getType() {
-        return this.type;
+    public Type getCastType() {
+        return this.castType;
     }
 
     public<TP, TR> TR accept(Visitor<TP, TR> v, TP tp) {

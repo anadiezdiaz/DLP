@@ -6,11 +6,12 @@ import semantic.Visitor;
 
 import java.util.Objects;
 
-public class RecordField implements Type {
+public class RecordField extends AbstractType {
     String name;
     Type type;
 
     public RecordField(String name, Type type) {
+        super(0,0);
         this.name = name;
         this.type = type;
     }

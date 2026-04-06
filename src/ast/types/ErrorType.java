@@ -6,7 +6,9 @@ import ast.Type;
 import errorhandler.ErrorHandler;
 import semantic.Visitor;
 
-public class ErrorType extends AbstractLocatable implements Type {
+import java.util.List;
+
+public class ErrorType extends AbstractType {
     private final String messageString;
 
     public ErrorType(String messageString, Locatable locatable) {
@@ -33,4 +35,48 @@ public class ErrorType extends AbstractLocatable implements Type {
     public String toString() {
         return "(" + getLine() + ", " + getColumn() + ") por: " + messageString;
     }
+
+    @Override
+    public Type arithmetic(Locatable locatable, Type other) {
+        return this;
+    }
+
+    @Override
+    public Type squareBrackets(Locatable locatable, Type other) {
+        return this;
+    }
+
+    @Override
+    public Type dot(Locatable locatable, String name) {
+        return this;
+    }
+
+    @Override
+    public Type comparison(Locatable locatable, Type other) {
+        return this;
+    }
+
+    @Override
+    public Type logic(Locatable locatable, Type other) {
+        return this;
+    }
+
+    @Override
+    public Type canBeCastTo(Locatable locatable, Type other) {
+        return this;
+    }
+
+    @Override
+    public Type parenthesis(Locatable locatable, List<Type> others) {
+        return this;
+    }
+
+    @Override
+    public void mustPromotes(Locatable locatable, Type other) {}
+
+    @Override
+    public void mustBeBuiltIn(Locatable locatable) {}
+
+    @Override
+    public void mustBeLogical(Locatable locatable){}
 }

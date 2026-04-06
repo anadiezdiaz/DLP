@@ -90,7 +90,7 @@ public class AbstractVisitor<TP, TR> implements Visitor<TP, TR> {
     @Override
     public TR visit(Logic l, TP p) {
         l.getRight().accept(this, p);
-        l.getRight().accept(this, p);
+        l.getLeft().accept(this, p);
         return null;
     }
 
