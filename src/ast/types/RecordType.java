@@ -35,6 +35,15 @@ public class RecordType extends AbstractType {
     }
 
     @Override
+    public int getNumberOfBytes(){
+        int total = 0;
+        for(RecordField r : recordFields){
+            total += r.getNumberOfBytes();
+        }
+        return total;
+    }
+
+    @Override
     public String toString(){
         return "RecordType";
     }

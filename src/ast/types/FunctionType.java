@@ -32,12 +32,11 @@ public class FunctionType extends AbstractType {
 
     @Override
     public Type parenthesis(Locatable locatable, List<Type> others) {
-        if(others.size() != parameters.size()){
+        if (others.size() != parameters.size()) {
             return super.parenthesis(locatable, others);
         }
-        for(int i = 0; i < parameters.size(); i++){
-            others.get(i).mustPromotes(locatable, parameters.get(i).getType());
-            return super.parenthesis(locatable, others);
+        for (int i = 0; i < parameters.size(); i++) {
+            parameters.get(i).getType().mustPromotes(locatable, others.get(i));
         }
         return returnType;
     }

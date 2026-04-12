@@ -63,6 +63,11 @@ public class CharType extends AbstractType {
     public void mustBeBuiltIn(Locatable locatable){}
 
     @Override
+    public int getNumberOfBytes(){
+        return 1;
+    }
+
+    @Override
     public String toString(){
         return "CharType";
     }

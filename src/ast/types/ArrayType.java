@@ -36,6 +36,11 @@ public class ArrayType extends AbstractType {
     }
 
     @Override
+    public int getNumberOfBytes(){
+        return type.getNumberOfBytes() * size;
+    }
+
+    @Override
     public String toString(){
         return "ArrayType, type: " + type;
     }

@@ -100,6 +100,11 @@ public class AbstractType extends AbstractLocatable implements Type {
     }
 
     @Override
+    public int getNumberOfBytes() {
+        return 0;
+    }
+
+    @Override
     public <TP, TR> TR accept(Visitor<TP, TR> v, TP tp) {
         return null;
     }

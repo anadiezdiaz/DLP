@@ -1,4 +1,5 @@
 import ast.Program;
+import codegen.OffsetVisitor;
 import org.antlr.v4.runtime.*;
 import introspector.model.IntrospectorModel;
 import introspector.view.IntrospectorView;
@@ -35,6 +36,7 @@ public class Main {
 		}
 		else{
 			// * The AST is shown
+			ast.accept(new OffsetVisitor(), null);
 			IntrospectorModel model=new IntrospectorModel("Program", ast);
 			new IntrospectorView("Introspector", model);
 		}

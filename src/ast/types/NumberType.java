@@ -65,6 +65,11 @@ public class NumberType extends AbstractType {
     public void mustBeBuiltIn(Locatable locatable){}
 
     @Override
+    public int getNumberOfBytes(){
+        return 4;
+    }
+
+    @Override
     public String toString(){
         return "NumberType";
     }

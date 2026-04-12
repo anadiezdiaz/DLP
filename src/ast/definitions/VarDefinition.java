@@ -9,6 +9,8 @@ import semantic.Visitor;
 import java.util.Objects;
 
 public class VarDefinition extends AbstractDefinition implements Statement{
+    int offset;
+    boolean isParam;
 
     public VarDefinition(int line, int column, String name, Type type) {
         super(line, column, name, type);
@@ -19,6 +21,22 @@ public class VarDefinition extends AbstractDefinition implements Statement{
         if (o == null || getClass() != o.getClass()) return false;
         VarDefinition that = (VarDefinition) o;
         return Objects.equals(name, that.name);
+    }
+
+    public int getOffset() {
+        return offset;
+    }
+
+    public void setOffset(int offset) {
+        this.offset = offset;
+    }
+
+    public boolean isParam() {
+        return isParam;
+    }
+
+    public void setParam(boolean param) {
+        isParam = param;
     }
 
     @Override

@@ -9,6 +9,7 @@ import java.util.Objects;
 public class RecordField extends AbstractType {
     String name;
     Type type;
+    int offset;
 
     public RecordField(String name, Type type) {
         super(0,0);
@@ -29,6 +30,19 @@ public class RecordField extends AbstractType {
         if (o == null || getClass() != o.getClass()) return false;
         RecordField that = (RecordField) o;
         return Objects.equals(name, that.name);
+    }
+
+    @Override
+    public int getNumberOfBytes(){
+        return type.getNumberOfBytes();
+    }
+
+    public int getOffset() {
+        return offset;
+    }
+
+    public void setOffset(int offset) {
+        this.offset = offset;
     }
 
     @Override
