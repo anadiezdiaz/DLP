@@ -1,6 +1,5 @@
 package ast.types;
 
-import ast.AbstractLocatable;
 import ast.Locatable;
 import ast.Type;
 import semantic.Visitor;
@@ -47,6 +46,6 @@ public class ArrayType extends AbstractType {
 
     @Override
     public String toString(){
-        return "ArrayType, type: " + type;
+        return "ArrayType [type=" + type + ", size=" + size + "]";
     }
 }

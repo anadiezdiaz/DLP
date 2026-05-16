@@ -89,14 +89,18 @@ public class AbstractType extends AbstractLocatable implements Type {
 
     @Override
     public Type parenthesis(Locatable locatable, List<Type> others) {
-        StringBuilder typesOfParams = new StringBuilder();
+        StringBuilder paramTypes = new StringBuilder();
         for(Type other : others){
             if(other instanceof ErrorType){
                 return other;
+            }else{
+                paramTypes.append(other.toString()).append(" ");
             }
-            typesOfParams.append(other.toString()).append(" ");
         }
-        return new ErrorType("Parenthesis with wrong parameters: " + typesOfParams.toString(), locatable);
+        if(paramTypes.isEmpty()) {
+            paramTypes.append("empty");
+        }
+        return new ErrorType("Parenthesis with wrong parameters: " + paramTypes.toString(), locatable);
     }
 
     @Override

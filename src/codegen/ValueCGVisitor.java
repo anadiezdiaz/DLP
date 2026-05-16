@@ -1,6 +1,5 @@
 package codegen;
 
-import ast.Expression;
 import ast.expressions.*;
 import ast.types.CharType;
 import ast.types.FunctionType;
@@ -88,7 +87,7 @@ public class ValueCGVisitor extends AbstractCGVisitor<Void, Void>{
         codeGenerator.comparison(exp1.type, exp1.op)
      */
     @Override
-    public Void visit(Comparisson c, Void p) {
+    public Void visit(Comparison c, Void p) {
         c.getLeft().accept(this, p);
         codeGenerator.convertTo(c.getLeft().getType(), c.getType());
         c.getRight().accept(this, p);

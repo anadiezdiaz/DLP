@@ -53,7 +53,7 @@ expression returns [Expression ast]:
     | '!' e1=expression {$ast = new UnaryNot($e1.ast.getLine(), $e1.ast.getColumn(), $e1.ast);}
     | e1=expression OP=('*'|'/'|'%') e2=expression {$ast = new Arithmetic($e1.ast.getLine(), $e1.ast.getColumn(), $e1.ast, $e2.ast, $OP.text);}
     | e1=expression OP=('+'|'-') e2=expression {$ast = new Arithmetic($e1.ast.getLine(), $e1.ast.getColumn(), $e1.ast, $e2.ast, $OP.text);}
-    | e1=expression OP=('>'|'>='|'<'|'<='|'!='|'==') e2=expression {$ast = new Comparisson($e1.ast.getLine(), $e1.ast.getColumn(), $e1.ast, $e2.ast, $OP.text);}
+    | e1=expression OP=('>'|'>='|'<'|'<='|'!='|'==') e2=expression {$ast = new Comparison($e1.ast.getLine(), $e1.ast.getColumn(), $e1.ast, $e2.ast, $OP.text);}
     | e1=expression OP=('&&'|'||') e2=expression {$ast = new Logic($e1.ast.getLine(), $e2.ast.getColumn(), $e1.ast, $e2.ast, $OP.text);}
     | ID {$ast = new Variable($ID.getLine(), $ID.getCharPositionInLine()+1, $ID.text);}
     | INT_CONSTANT {$ast = new IntLiteral($INT_CONSTANT.getLine(), $INT_CONSTANT.getCharPositionInLine()+1, LexerHelper.lexemeToInt($INT_CONSTANT.text));}

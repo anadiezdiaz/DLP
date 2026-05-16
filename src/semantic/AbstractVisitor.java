@@ -36,15 +36,15 @@ public class AbstractVisitor<TP, TR> implements Visitor<TP, TR> {
 
     @Override
     public TR visit(Arithmetic a, TP p) {
-        a.getRight().accept(this, p);
         a.getLeft().accept(this, p);
+        a.getRight().accept(this, p);
         return null;
     }
 
     @Override
     public TR visit(ArrayAccess a, TP p) {
-        a.getRight().accept(this, p);
         a.getLeft().accept(this, p);
+        a.getRight().accept(this, p);
         return null;
     }
 
@@ -61,9 +61,9 @@ public class AbstractVisitor<TP, TR> implements Visitor<TP, TR> {
     }
 
     @Override
-    public TR visit(Comparisson c, TP p) {
-        c.getRight().accept(this, p);
+    public TR visit(Comparison c, TP p) {
         c.getLeft().accept(this, p);
+        c.getRight().accept(this, p);
         return null;
     }
 
@@ -89,8 +89,8 @@ public class AbstractVisitor<TP, TR> implements Visitor<TP, TR> {
 
     @Override
     public TR visit(Logic l, TP p) {
-        l.getRight().accept(this, p);
         l.getLeft().accept(this, p);
+        l.getRight().accept(this, p);
         return null;
     }
 
@@ -118,8 +118,8 @@ public class AbstractVisitor<TP, TR> implements Visitor<TP, TR> {
 
     @Override
     public TR visit(Assignment a, TP p) {
-        a.getRight().accept(this, p);
         a.getLeft().accept(this, p);
+        a.getRight().accept(this, p);
         return null;
     }
 

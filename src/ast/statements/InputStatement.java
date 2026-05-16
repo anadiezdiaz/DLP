@@ -21,4 +21,10 @@ public class InputStatement extends AbstractExpressionStatement {
     public<TP, TR> TR accept(Visitor<TP, TR> v, TP tp) {
         return v.visit(this, tp);
     }
+
+    @Override
+    public String toString() {
+        return "InputStatement [expressions=" + getExpressions()
+                + ", line=" + getLine() + ", column=" + getColumn() + "]";
+    }
 }

@@ -1,6 +1,5 @@
 package ast.types;
 
-import ast.AbstractLocatable;
 import ast.Locatable;
 import ast.Type;
 import ast.definitions.VarDefinition;
@@ -52,7 +51,7 @@ public class FunctionType extends AbstractType {
         this.paramBytes = paramBytes;
     }
 
-    public int getBytesReturn() {
+    public int getReturnBytes() {
         return returnBytes;
     }
 
@@ -62,7 +61,8 @@ public class FunctionType extends AbstractType {
 
     @Override
     public String toString(){
-        return "FunctionType";
+        return "FunctionType [parameters=" + getParameters() + ", returnType=" + getReturnType()
+                + ", returnBytes=" + getReturnBytes() + ", paramBytes=" + getParamBytes() + "]";
     }
 
 }

@@ -14,4 +14,9 @@ public class ReturnStatement extends AbstractUnaryExpressionStatement {
         return v.visit(this, tp);
     }
 
+    @Override
+    public String toString() {
+        return "ReturnStatement [expression=" + getExpression() + ", line=" + getLine() + ", column=" + getColumn() + "]";
+    }
+
 }

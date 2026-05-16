@@ -1,9 +1,7 @@
 package ast.types;
 
-import ast.AbstractLocatable;
 import ast.Type;
 import semantic.Visitor;
-
 import java.util.Objects;
 
 public class RecordField extends AbstractType {
@@ -57,6 +55,11 @@ public class RecordField extends AbstractType {
 
     public<TP, TR> TR accept(Visitor<TP, TR> v, TP tp) {
         return v.visit(this, tp);
+    }
+
+    @Override
+    public String toString() {
+        return "RecordField [name=" + getName() + ", type=" + getType() + ", offset=" + getOffset() + "]";
     }
 
 }

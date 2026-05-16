@@ -20,7 +20,7 @@ public interface Visitor<TP, TR> {
     TR visit (ArrayAccess a, TP p);
     TR visit (Cast c, TP p);
     TR visit (CharLiteral c, TP p);
-    TR visit (Comparisson c, TP p);
+    TR visit (Comparison c, TP p);
     TR visit (FieldAccess f, TP p);
     TR visit (FunctionInvocation f, TP p);
     TR visit (IntLiteral i, TP p);

@@ -1,6 +1,5 @@
 package ast.types;
 
-import ast.AbstractLocatable;
 import ast.Locatable;
 import ast.Type;
 import errorhandler.ErrorHandler;
@@ -79,4 +78,5 @@ public class ErrorType extends AbstractType {
 
     @Override
     public void mustBeLogical(Locatable locatable){}
+
 }

@@ -28,4 +28,10 @@ public class FunctionInvocation extends AbstractExpression implements Statement{
         return v.visit(this, tp);
     }
 
+    @Override
+    public String toString() {
+        return "FunctionInvocation [arguments=" + getArguments() + ", variable=" + getVariable()
+                + ", line= " + getLine() + ", column= " + getColumn() + "]";
+    }
+
 }

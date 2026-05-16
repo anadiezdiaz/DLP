@@ -11,4 +11,10 @@ public class Logic extends AbstractBinaryOperatorExpression{
     public<TP, TR> TR accept(Visitor<TP, TR> v, TP tp) {
         return v.visit(this, tp);
     }
+
+    @Override
+    public String toString() {
+        return "Logic [left=" + getLeft() + ", right=" + getRight() + ", operator=" + getOperator()
+                + ", line" + getLine() + ", column" + getColumn() + "]";
+    }
 }

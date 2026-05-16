@@ -3,8 +3,8 @@ package ast.expressions;
 import ast.Expression;
 import semantic.Visitor;
 
-public class Arithmetic extends AbstractBinaryOperatorExpression{
-    public Arithmetic(int line, int column, Expression left, Expression right, String operator) {
+public class Comparison extends AbstractBinaryOperatorExpression{
+    public Comparison(int line, int column, Expression left, Expression right, String operator) {
         super(line, column, left, right, operator);
     }
 
@@ -14,7 +14,7 @@ public class Arithmetic extends AbstractBinaryOperatorExpression{
 
     @Override
     public String toString() {
-        return "Arithmetic [left= " + getLeft() + ", operator=" + getOperator() + ", right=" + getRight()
+        return "Comparison [left=" + getLeft() + ", operator=" + getOperator() + ", right=" + getRight()
                 + ", line=" + getLine() + ", column=" + getColumn() + "]";
     }
 }

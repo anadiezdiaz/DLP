@@ -11,4 +11,9 @@ public class UnaryMinus extends AbstractUnaryExpression{
     public<TP, TR> TR accept(Visitor<TP, TR> v, TP tp) {
         return v.visit(this, tp);
     }
+
+    @Override
+    public String toString() {
+        return "UnaryMinus [expression=" + getExpression() + ", line=" + getLine() + ", column=" + getColumn() + "]";
+    }
 }

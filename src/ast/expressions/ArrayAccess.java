@@ -11,4 +11,10 @@ public class ArrayAccess extends AbstractBinaryExpression{
     public<TP, TR> TR accept(Visitor<TP, TR> v, TP tp) {
         return v.visit(this, tp);
     }
+
+    @Override
+    public String toString() {
+        return "ArrayAccess [left= " + getLeft() + ", right=" + getRight()
+                + ", line" + getLine() + ", column" + getColumn() + "]";
+    }
 }

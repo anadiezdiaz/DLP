@@ -1,11 +1,6 @@
 package semantic;
 
-import ast.Definition;
 import ast.Expression;
-import ast.Program;
-import ast.Statement;
-import ast.definitions.FuncDefinition;
-import ast.definitions.VarDefinition;
 import ast.expressions.*;
 import ast.statements.*;
 import ast.types.*;
@@ -41,7 +36,7 @@ public class LValueVisitor<TP, TR> extends AbstractVisitor<Void, Void>{
     }
 
     @Override
-    public Void visit(Comparisson c, Void p) {
+    public Void visit(Comparison c, Void p) {
         super.visit(c, p);
         c.setLValue(false);
         return null;

@@ -47,7 +47,7 @@ public abstract class AbstractCGVisitor<TP, TR> implements Visitor<TP, TR> {
     }
 
     @Override
-    public TR visit(Comparisson c, TP p) {
+    public TR visit(Comparison c, TP p) {
         throw new UnsupportedOperationException("CG Error in Comparison");
     }
 

@@ -1,6 +1,5 @@
 package ast.expressions;
 
-import ast.Expression;
 import semantic.Visitor;
 
 public class IntLiteral extends AbstractExpression {
@@ -17,5 +16,10 @@ public class IntLiteral extends AbstractExpression {
 
     public<TP, TR> TR accept(Visitor<TP, TR> v, TP tp) {
         return v.visit(this, tp);
+    }
+
+    @Override
+    public String toString() {
+        return "IntLiteral [value=" + getValue() + ", line" + getLine() + ", column" + getColumn() + "]";
     }
 }

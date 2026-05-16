@@ -1,6 +1,5 @@
 package ast.types;
 
-import ast.AbstractLocatable;
 import ast.Locatable;
 import ast.Type;
 import semantic.Visitor;

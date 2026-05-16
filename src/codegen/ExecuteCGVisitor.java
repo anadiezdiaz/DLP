@@ -141,41 +141,42 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<FuncDefinition, Void>{
           <ret> 0, def.byteslocals, type.parameters.reduce(0, (s, p) => s + p.type...
      */
     @Override
-    public Void visit(FuncDefinition fd, FuncDefinition f) {
-        FunctionType functionType = (FunctionType) fd.getType();
-        int localBytes = 0;
-        for (Statement s : fd.getStatements()) {
-            if (s instanceof VarDefinition v && !v.isParam()) {
-                localBytes += v.getType().getNumberOfBytes();
-            }
-        }
-        int localParams = 0;
-        for (VarDefinition par : functionType.getParameters()) {
-            localParams += par.getType().getNumberOfBytes();
-        }
-        int bytesRetorno = functionType.getReturnType().getNumberOfBytes();
+    public Void visit(FuncDefinition funcDef, FuncDefinition p) {
+        codeGenerator.comment(String.valueOf(funcDef.getLine()));
+        codeGenerator.comment(funcDef.getName());
 
-        codeGenerator.label(fd.getName());
-        codeGenerator.comment("' * Parameters");
-        for (VarDefinition par : functionType.getParameters()) {
-            par.accept(this, fd);
-        }
-        codeGenerator.comment("' * Local variables");
-        for (Statement s : fd.getStatements()) {
-            if (s instanceof VarDefinition v) {
-                v.accept(this, fd);
+        int previous = totalLocalVarDefSizes;
+        totalLocalVarDefSizes = 0;
+
+        FunctionType type = (FunctionType) funcDef.getType();
+        type.setParamBytes(
+                type.getParameters().stream()
+                        .mapToInt(v -> v.getType().getNumberOfBytes())
+                        .sum()
+        );
+        type.setReturnBytes(type.getReturnType().getNumberOfBytes());
+
+        for (Statement s : funcDef.getStatements()) {
+            if (s instanceof VarDefinition) {
+                s.accept(this, funcDef);
             }
         }
-        codeGenerator.enter(localBytes);
-        for (Statement s : fd.getStatements()) {
+
+        funcDef.setLocalBytes(totalLocalVarDefSizes);
+        codeGenerator.enter(funcDef.getLocalBytes());
+
+        for (Statement s : funcDef.getStatements()) {
             if (!(s instanceof VarDefinition)) {
-                s.accept(this, fd);
+                s.accept(this, funcDef);
             }
         }
-        //acordarse de smtnt*.(forEach(s -> execute[[s]](def))
-        if (functionType.getReturnType().getNumberOfBytes() == 0) {
-            codeGenerator.ret(bytesRetorno, localBytes, localParams);
+
+        //type.getBytesReturn() == 0
+        if (funcDef.getType() == VoidType.getInstance()) {
+            codeGenerator.ret(type.getReturnBytes(), funcDef.getLocalBytes(), type.getParamBytes());
         }
+
+        totalLocalVarDefSizes = previous;
         return null;
     }
 

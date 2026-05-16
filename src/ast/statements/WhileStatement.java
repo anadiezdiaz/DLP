@@ -22,4 +22,9 @@ public class WhileStatement extends AbstractUnaryExpressionStatement{
         return v.visit(this, tp);
     }
 
+    @Override
+    public String toString() {
+        return "WhileStatement [body=" + getBody() + ", condition" + getExpression()
+                + ", line" + getLine() + ", column" + getColumn() + "]";
+    }
 }

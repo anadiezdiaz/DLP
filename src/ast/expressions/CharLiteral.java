@@ -17,4 +17,9 @@ public class CharLiteral extends AbstractExpression {
     public<TP, TR> TR accept(Visitor<TP, TR> v, TP tp) {
         return v.visit(this, tp);
     }
+
+    @Override
+    public String toString() {
+        return "CharLiteral [value=" + getValue() + ", line" + getLine() + ", column" + getColumn() + "]";
+    }
 }

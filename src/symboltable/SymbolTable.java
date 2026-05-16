@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public class SymbolTable {
-    private int scope=  0;
+    private int scope = 0;
     private List<Map<String,Definition>> table;
 
     public SymbolTable(){
@@ -21,7 +21,7 @@ public class SymbolTable {
         table.add(new HashMap<>());
     }
 
-    //metodo para quitar un ambito (el local)
+    //metodo para quitar un ámbito (el local)
     public void reset(){
         table.remove(scope);
         scope--;

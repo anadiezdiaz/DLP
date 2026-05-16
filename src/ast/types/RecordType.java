@@ -1,11 +1,8 @@
 package ast.types;
 
-import ast.AbstractLocatable;
 import ast.Locatable;
 import ast.Type;
 import semantic.Visitor;
-
-import java.sql.Ref;
 import java.util.List;
 
 public class RecordType extends AbstractType {
@@ -54,6 +51,6 @@ public class RecordType extends AbstractType {
 
     @Override
     public String toString(){
-        return "RecordType";
+        return "RecordType [RecordFields=" + getRecordFields() + "]";
     }
 }

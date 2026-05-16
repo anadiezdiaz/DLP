@@ -28,4 +28,10 @@ public class IfElseStatement extends AbstractUnaryExpressionStatement{
     public<TP, TR> TR accept(Visitor<TP, TR> v, TP tp) {
         return v.visit(this, tp);
     }
+
+    @Override
+    public String toString() {
+        return "IfElseStatement [ifBody=" + getIfBody() + ", elseBody=" + getElseBody() + ", condition=" + getExpression()
+                + ", line" + getLine() + ", column" + getColumn() + "]";
+    }
 }

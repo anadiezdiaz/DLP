@@ -13,4 +13,10 @@ public class Assignment extends AbstractBinaryExpressionStatement {
     public<TP, TR> TR accept(Visitor<TP, TR> v, TP tp) {
         return v.visit(this, tp);
     }
+
+    @Override
+    public String toString() {
+        return "Assignment [left=" + getLeft() + ", right=" + getRight()
+                + ", line=" + getLine() + ", column=" + getColumn() + "]";
+    }
 }

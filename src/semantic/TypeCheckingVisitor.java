@@ -46,7 +46,7 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type, Void> {
     }
 
     @Override
-    public Void visit(Comparisson c, Type p) {
+    public Void visit(Comparison c, Type p) {
         super.visit(c, p);
         c.setType(c.getLeft().getType().comparison(c, c.getRight().getType()));
         return null;

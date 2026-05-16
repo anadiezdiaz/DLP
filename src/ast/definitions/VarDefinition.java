@@ -1,9 +1,7 @@
 package ast.definitions;
 
-import ast.Definition;
 import ast.Statement;
 import ast.Type;
-import ast.types.RecordField;
 import semantic.Visitor;
 
 import java.util.Objects;
@@ -46,5 +44,11 @@ public class VarDefinition extends AbstractDefinition implements Statement{
 
     public<TP, TR> TR accept(Visitor<TP, TR> v, TP tp) {
         return v.visit(this, tp);
+    }
+
+    @Override
+    public String toString() {
+        return "VarDefinition [name=" + name + ", type=" + type
+                + ", line=" + getLine() + ", column=" + getColumn() + "]";
     }
 }
