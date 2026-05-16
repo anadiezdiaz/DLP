@@ -1,5 +1,6 @@
-Annotate the AST with the offsets of:
-- Global variables
-- Local variables
-- (Formal) parameters
-- Record fields
+Generate code for:
+- Function invocations
+- Return statements
+
+CFG-chat:
+https://forms.office.com/e/8f5i4wPrkP

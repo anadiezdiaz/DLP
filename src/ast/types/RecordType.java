@@ -43,6 +43,15 @@ public class RecordType extends AbstractType {
         return total;
     }
 
+    public RecordField getField(String id){
+        for(RecordField rf : getRecordFields()){
+            if(rf.getName().equals(id)){
+                return rf;
+            }
+        }
+        return null;
+    }
+
     @Override
     public String toString(){
         return "RecordType";

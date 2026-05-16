@@ -70,6 +70,11 @@ public class NumberType extends AbstractType {
     }
 
     @Override
+    public char suffix(){
+        return 'f';
+    }
+
+    @Override
     public String toString(){
         return "NumberType";
     }

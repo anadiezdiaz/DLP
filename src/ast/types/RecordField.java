@@ -46,6 +46,11 @@ public class RecordField extends AbstractType {
     }
 
     @Override
+    public char suffix(){
+        return getType().suffix();
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(name);
     }

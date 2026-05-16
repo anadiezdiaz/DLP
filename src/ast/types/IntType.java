@@ -76,8 +76,16 @@ public class IntType extends AbstractType {
     public void mustBeBuiltIn(Locatable locatable){}
 
     @Override
+    public void mustBeLogical(Locatable locatable) {}
+
+    @Override
     public int getNumberOfBytes(){
         return 2;
+    }
+
+    @Override
+    public char suffix(){
+        return 'i';
     }
 
     @Override

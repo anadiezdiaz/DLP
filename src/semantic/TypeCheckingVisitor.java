@@ -34,7 +34,7 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type, Void> {
     @Override
     public Void visit(Cast c, Type p) {
         super.visit(c, p);
-        c.setType(c.getExpression().getType().canBeCastTo(c, c.getType()));
+        c.setType(c.getExpression().getType().canBeCastTo(c, c.getCastType()));
         return null;
     }
 

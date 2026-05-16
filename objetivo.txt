@@ -1,5 +1,3 @@
-Annotate the AST with the offsets of:
-- Global variables
-- Local variables
-- (Formal) parameters
-- Record fields
+Generar codigo para:
+- Function invocations
+- Return statements

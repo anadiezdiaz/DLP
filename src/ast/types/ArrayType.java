@@ -41,6 +41,11 @@ public class ArrayType extends AbstractType {
     }
 
     @Override
+    public char suffix(){
+        return getType().suffix();
+    }
+
+    @Override
     public String toString(){
         return "ArrayType, type: " + type;
     }
