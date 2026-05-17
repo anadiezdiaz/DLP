@@ -123,7 +123,7 @@ public class ValueCGVisitor extends AbstractCGVisitor<Void, Void>{
             codeGenerator.convertTo(f.getArguments().get(i).getType(),
                     ((FunctionType) f.getVariable().getType()).getParameters().get(i).getType());
         }
-        codeGenerator.call(f.getVariable().getName());
+        codeGenerator.callIdent(f.getVariable().getName());
         return null;
     }
 

@@ -209,6 +209,11 @@ public class CodeGenerator {
         out.flush();
     }
 
+    public void callIdent(String id){
+        out.println("\tcall\t" + id);
+        out.flush();
+    }
+
     public void enter(int bytes){
         out.println("\tenter\t" + bytes);
         out.flush();

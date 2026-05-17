@@ -212,16 +212,26 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<FuncDefinition, Void>{
     public Void visit(IfElseStatement i, FuncDefinition f){
         String elseLabel = codeGenerator.getLabel();
         String endLabel = codeGenerator.getLabel();
+
+        codeGenerator.line(i.getLine());
+        codeGenerator.comment("' * If");
+
+        codeGenerator.line(i.getLine());
         i.getExpression().accept(value, null);
         codeGenerator.convertTo(i.getExpression().getType(), IntType.getInstance());
         codeGenerator.jz(elseLabel);
+
+        codeGenerator.comment("' * if body");
         for(Statement s : i.getIfBody()){
-            s.accept(this, null);
+            s.accept(this, f);
         }
         codeGenerator.jmp(endLabel);
         codeGenerator.label(elseLabel);
+
+        codeGenerator.comment("' * else body");
+
         for(Statement s : i.getElseBody()){
-            s.accept(this, null);
+            s.accept(this, f);
         }
         codeGenerator.label(endLabel);
         return null;
