@@ -1,4 +1,3 @@
-
 #source	"input.txt"
 
 	' * char c (offset 0)

@@ -13,11 +13,13 @@ public class OffsetVisitor extends AbstractVisitor<Void, Void> {
 
     @Override
     public Void visit(FuncDefinition f, Void p) {
+        int previousByteSum = byteSum;
         f.getType().accept(this, p);
         byteSum = 0;
         for (Statement s : f.getStatements()) {
             s.accept(this, p);
         }
+        byteSum = previousByteSum;
         return null;
     }
 

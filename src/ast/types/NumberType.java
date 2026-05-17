@@ -24,9 +24,7 @@ public class NumberType extends AbstractType {
 
     @Override
     public Type arithmetic(Locatable locatable, Type other) {
-        if(other == IntType.getInstance() || other == CharType.getInstance())
-            return IntType.getInstance();
-        if(other == NumberType.getInstance())
+        if(other == IntType.getInstance() || other == CharType.getInstance() || other == NumberType.getInstance())
             return NumberType.getInstance();
         return super.arithmetic(locatable, other);
     }
@@ -75,6 +73,6 @@ public class NumberType extends AbstractType {
 
     @Override
     public String toString(){
-        return "NumberType";
+        return "RealType";
     }
 }

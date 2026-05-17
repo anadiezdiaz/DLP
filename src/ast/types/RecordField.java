@@ -59,7 +59,7 @@ public class RecordField extends AbstractType {
 
     @Override
     public String toString() {
-        return "RecordField [name=" + getName() + ", type=" + getType() + ", offset=" + getOffset() + "]";
+        return "Field[name:" + getName() + ",type:" + getType() + " offset:" + getOffset() + "]";
     }
 
 }

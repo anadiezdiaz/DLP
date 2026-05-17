@@ -20,6 +20,6 @@ public class CharLiteral extends AbstractExpression {
 
     @Override
     public String toString() {
-        return "CharLiteral [value=" + getValue() + ", line" + getLine() + ", column" + getColumn() + "]";
+        return String.valueOf(getValue());
     }
 }

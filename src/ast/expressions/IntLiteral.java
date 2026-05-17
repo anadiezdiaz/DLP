@@ -20,6 +20,6 @@ public class IntLiteral extends AbstractExpression {
 
     @Override
     public String toString() {
-        return "IntLiteral [value=" + getValue() + ", line" + getLine() + ", column" + getColumn() + "]";
+        return String.valueOf(getValue());
     }
 }

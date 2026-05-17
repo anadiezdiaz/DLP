@@ -20,6 +20,6 @@ public class NumberLiteral extends AbstractExpression {
 
     @Override
     public String toString() {
-        return "NumberLiteral [value=" + getValue() + ", line" + getLine() + ", column" + getColumn() + "]";
+        return String.valueOf(getValue());
     }
 }

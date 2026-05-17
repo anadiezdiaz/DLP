@@ -8,7 +8,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="antlr-4.13.2-complete" level="project" />
-    <orderEntry type="library" name="introspector-1.3.1" level="project" />
+    <orderEntry type="library" exported="" name="antlr-4.13.2-complete" level="project" />
+    <orderEntry type="library" exported="" name="introspector-1.3.1" level="project" />
   </component>
 </module>

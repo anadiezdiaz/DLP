@@ -74,7 +74,7 @@ public class ValueCGVisitor extends AbstractCGVisitor<Void, Void>{
      */
     @Override
     public Void visit(CharLiteral c, Void p) {
-        codeGenerator.push(CharType.getInstance(), c);
+        codeGenerator.push(CharType.getInstance(), (int) c.getValue());
         return null;
     }
 
@@ -121,7 +121,7 @@ public class ValueCGVisitor extends AbstractCGVisitor<Void, Void>{
         for(int i = 0; i < f.getArguments().size(); i++){
             f.getArguments().get(i).accept(this, p);
             codeGenerator.convertTo(f.getArguments().get(i).getType(),
-                    ((FunctionType) f.getType()).getParameters().get(i).getType());
+                    ((FunctionType) f.getVariable().getType()).getParameters().get(i).getType());
         }
         codeGenerator.call(f.getVariable().getName());
         return null;
@@ -186,7 +186,7 @@ public class ValueCGVisitor extends AbstractCGVisitor<Void, Void>{
     */
     @Override
     public Void visit(UnaryNot u, Void p) {
-        u.accept(this, p);
+        u.getExpression().accept(this, p);
         codeGenerator.logical("!");
         return null;
     }

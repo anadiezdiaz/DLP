@@ -1,304 +1,229 @@
-	' * ArrayType, type: NumberType v (offset0)
-	call main
-	halt
-main:
+
+#source	"input.txt"
+
+	' * CharType c (offset 0)
+	' * IntType i (offset 1)
+	' * RealType r (offset 3)
+
+' Invocation to the main function
+call main
+halt
+
+
+#line	5
+
+ main:
 	' * Parameters
 	' * Local variables
-	' * NumberType value (offset-4)
-	' * IntType i (offset-6)
-	' * IntType j (offset-8)
-	' * ArrayType, type: ArrayType, type: IntType w (offset-48)
-	' * RecordType date (offset-54)
-	enter 54
-	pushbp
-	pushi -54
-	add0
-	pushi 0
+	' * IntType a (offset -2)
+	' * IntType i (offset -4)
+	enter	4
+
+#line	8
+	' * Assignment
+	pusha	0
+	pushb	97
+	storeb
+
+#line	9
+	' * Write
+	pusha	0
+	loadb
+	outb
+
+#line	9
+	' * Write
+	pushb	10
+	outb
+
+#line	11
+	' * Assignment
+	push	bp
+	pushi	-2
 	addi
-	ini
+	pushf	1.5
+	f2i
 	storei
-	pushbp
-	pushi -54
-	add0
-	pushi 4
+
+#line	12
+	' * Assignment
+	push	bp
+	pushi	-4
 	addi
-	pushb ast.expressions.CharLiteral@7c75222b
-	storei
-	pushbp
-	pushi -54
-	add0
-	pushi 2
-	addi
-	pushbp
-	pushi -54
-	add0
-	pushi 0
-	addi
-	loadi
-	pushbp
-	pushi -54
-	add0
-	pushi 4
-	addi
-	loadi
+	pushb	48
+	b2i
+	pushi	3
 	muli
-	divi
-	modi
-	pushi ast.expressions.IntLiteral@4c203ea1
-	modi
-	pushi ast.expressions.IntLiteral@27f674d
-	addi
-	subi
-	muli
-	divi
-	modi
 	storei
-	pushbp
-	pushi -54
-	add0
-	pushi 0
+
+#line	13
+	' * Write
+	push	bp
+	pushi	-2
 	addi
 	loadi
 	outi
-	pushb ast.expressions.CharLiteral@1d251891
+
+#line	13
+	' * Write
+	pushb	32
 	outb
-	pushbp
-	pushi -54
-	add0
-	pushi 2
+
+#line	13
+	' * Write
+	push	bp
+	pushi	-4
 	addi
 	loadi
 	outi
-	pushb ast.expressions.CharLiteral@48140564
+
+#line	13
+	' * Write
+	pushb	10
 	outb
-	pushbp
-	pushi -54
-	add0
-	pushi 4
-	addi
-	loadi
-	i2f
-	outf
-	pushb ast.expressions.CharLiteral@58ceff1
-	outb
-	pushbp
-	pushi -4
-	addf
+
+#line	15
+	' * Read
+	pusha	3
 	inf
 	storef
-	pushbp
-	pushi -6
-	addi
-	pushi ast.expressions.IntLiteral@7c30a502
-	storei
-label1:
-	pushbp
-	pushi -6
-	addi
-	loadi
-	pushi ast.expressions.IntLiteral@49e4cb85
-	lti
-	gei
-	lei
-	eqi
-	nei
-	jz label2:
-	pusha 0
-	pushbp
-	pushi -6
-	addi
-	loadi
-	pushi 4
-	muli
-	addi
-	pushbp
-	pushi -4
-	addf
+
+#line	16
+	' * Write
+	pushi	2
+	i2f
+	pusha	3
 	loadf
-	storef
-	pushbp
-	pushi -6
-	addi
-	loadi
-	outi
-	pushb ast.expressions.CharLiteral@1e643faf
-	outb
-	pusha 0
-	pushbp
-	pushi -6
-	addi
-	loadi
-	pushi 4
-	muli
-	addi
-	loadf
+	mulf
 	outf
-	pushb ast.expressions.CharLiteral@6e8dacdf
+
+#line	16
+	' * Write
+	pushb	10
 	outb
-	pushbp
-	pushi -6
-	addi
-	loadi
-	pushi ast.expressions.IntLiteral@7a79be86
+
+#line	18
+	' * Write
+	pushi	3
+	i2f
+	pushf	4.5
+	subf
+	outf
+
+#line	18
+	' * Write
+	pushb	32
+	outb
+
+#line	18
+	' * Write
+	pushb	48
+	b2i
+	i2f
+	pushf	48.0
+	divf
+	outf
+
+#line	18
+	' * Write
+	pushb	32
+	outb
+
+#line	18
+	' * Write
+	pushb	48
+	b2i
+	pushb	49
+	b2i
 	modi
-	jz label3:
-	pushb ast.expressions.CharLiteral@34ce8af7
-	outb
-	pushb ast.expressions.CharLiteral@b684286
-	outb
-	pushb ast.expressions.CharLiteral@880ec60
-	outb
-	pushb ast.expressions.CharLiteral@3f3afe78
-	outb
-	jmp label4:
-label3:
-	pushb ast.expressions.CharLiteral@7f63425a
-	outb
-	pushb ast.expressions.CharLiteral@36d64342
-	outb
-	pushb ast.expressions.CharLiteral@39ba5a14
-	outb
-	pushb ast.expressions.CharLiteral@511baa65
-	outb
-	pushb ast.expressions.CharLiteral@340f438e
-	outb
-label4:
-	pushbp
-	pushi -6
-	addi
-	pushbp
-	pushi -6
-	addi
-	loadi
-	pushi ast.expressions.IntLiteral@30c7da1e
-	addi
-	subi
-	muli
-	divi
-	modi
-	storei
-	jmp label1:
-label2:
-	pushb ast.expressions.CharLiteral@5b464ce8
-	outb
-	pushbp
-	pushi -6
-	addi
-	pushi ast.expressions.IntLiteral@57829d67
-	storei
-label5:
-	pushbp
-	pushi -6
-	addi
-	loadi
-	pushi ast.expressions.IntLiteral@19dfb72a
-	lti
-	gei
-	lei
-	eqi
-	nei
-	jz label6:
-	pushbp
-	pushi -8
-	addi
-	pushi ast.expressions.IntLiteral@17c68925
-	storei
-label7:
-	pushbp
-	pushi -8
-	addi
-	loadi
-	pushi ast.expressions.IntLiteral@7e0ea639
-	lti
-	gei
-	lei
-	eqi
-	nei
-	jz label8:
-	pushbp
-	pushi -48
-	addi
-	pushbp
-	pushi -6
-	addi
-	loadi
-	pushi 10
-	muli
-	addi
-	pushbp
-	pushi -8
-	addi
-	loadi
-	pushi 2
-	muli
-	addi
-	pushbp
-	pushi -6
-	addi
-	loadi
-	pushbp
-	pushi -8
-	addi
-	loadi
-	addi
-	subi
-	muli
-	divi
-	modi
-	storei
-	pushbp
-	pushi -48
-	addi
-	pushbp
-	pushi -6
-	addi
-	loadi
-	pushi 10
-	muli
-	addi
-	pushbp
-	pushi -8
-	addi
-	loadi
-	pushi 2
-	muli
-	addi
-	loadi
 	outi
-	pushb ast.expressions.CharLiteral@3d24753a
+
+#line	18
+	' * Write
+	pushb	32
 	outb
-	pushbp
-	pushi -8
+
+#line	18
+	' * Write
+	pushi	0
+	pushb	49
+	b2i
 	addi
-	pushbp
-	pushi -8
-	addi
-	loadi
-	pushi ast.expressions.IntLiteral@59a6e353
-	addi
-	subi
-	muli
-	divi
-	modi
-	storei
-	jmp label7:
-label8:
-	pushb ast.expressions.CharLiteral@7a0ac6e3
+	outi
+
+#line	18
+	' * Write
+	pushb	10
 	outb
-	pushbp
-	pushi -6
-	addi
-	pushbp
-	pushi -6
-	addi
-	loadi
-	pushi ast.expressions.IntLiteral@71be98f5
-	addi
-	subi
-	muli
-	divi
-	modi
-	storei
-	jmp label5:
-label6:
-	ret 0, 54, 0
+
+#line	22
+	' * Write
+	pushi	1
+	pushi	2
+	lti
+	outi
+
+#line	22
+	' * Write
+	pushb	32
+	outb
+
+#line	22
+	' * Write
+	pushi	4
+	pushi	3
+	gei
+	outi
+
+#line	22
+	' * Write
+	pushb	32
+	outb
+
+#line	22
+	' * Write
+	pushi	5
+	pushi	5
+	eqi
+	outi
+
+#line	22
+	' * Write
+	pushb	32
+	outb
+
+#line	22
+	' * Write
+	pushi	1
+	pushi	2
+	and
+	outi
+
+#line	22
+	' * Write
+	pushb	32
+	outb
+
+#line	22
+	' * Write
+	pushi	0
+	pushi	3
+	or
+	outi
+
+#line	22
+	' * Write
+	pushb	32
+	outb
+
+#line	22
+	' * Write
+	pushi	0
+	not
+	outi
+
+#line	22
+	' * Write
+	pushb	10
+	outb
+	ret	0, 4, 0

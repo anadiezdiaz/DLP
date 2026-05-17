@@ -51,6 +51,6 @@ public class RecordType extends AbstractType {
 
     @Override
     public String toString(){
-        return "RecordType [RecordFields=" + getRecordFields() + "]";
+        return "RecordType[fields:" + getRecordFields() + "]";
     }
 }

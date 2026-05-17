@@ -41,7 +41,7 @@ public class AddressCGVisitor extends AbstractCGVisitor<Void, Void>{
         }else{
             codeGenerator.pushbp();
             codeGenerator.push(IntType.getInstance(), ((VarDefinition) v.getDefinition()).getOffset());
-            codeGenerator.add(v.getType());
+            codeGenerator.add(IntType.getInstance());
         }
         return null;
     }
@@ -73,7 +73,7 @@ public class AddressCGVisitor extends AbstractCGVisitor<Void, Void>{
     public Void visit(ArrayAccess a, Void p){
         a.getLeft().accept(this, p);
         a.getRight().accept(value, p);
-        codeGenerator.convertTo(a.getLeft().getType(), IntType.getInstance());
+        codeGenerator.convertTo(a.getRight().getType(), IntType.getInstance());
         codeGenerator.push(IntType.getInstance(), a.getType().getNumberOfBytes());
         codeGenerator.mul(IntType.getInstance());
         codeGenerator.add(IntType.getInstance());
