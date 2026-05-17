@@ -90,6 +90,7 @@ statement returns [List<Statement> ast = new ArrayList<Statement>();] locals [Li
     | 'while' '(' e1=expression ')' b1=block {$ast.add(new WhileStatement($e1.ast.getLine(), $e1.ast.getColumn(), $e1.ast, $b1.ast));}
     | 'return' e1=expression ';' {$ast.add(new ReturnStatement($e1.ast.getLine(), $e1.ast.getColumn(), $e1.ast));}
     | f=func_invocation ';' {$ast.add($f.ast);}
+    | d='do' b1=block 'while' '(' e1=expression ')' ';'{$ast.add(new DoWhileStatement($d.getLine(), $d.getCharPositionInLine()+1, $e1.ast, $b1.ast));}
     ;
 func_invocation returns [FunctionInvocation ast] locals [List<Expression> params = new ArrayList<Expression>()]:
     ID  '(' (expression_list{$params=$expression_list.ast;})? ')'

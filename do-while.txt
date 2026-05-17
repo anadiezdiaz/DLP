@@ -1,0 +1,10 @@
+let i:int;
+let j:int;
+
+function main(): void {
+    i = 0;
+    do {
+        i = i + 1;
+    } while (i < 3);
+    log 'R', 'E', 'S', 'U', 'L', 'T', ':', ' ', i;
+}

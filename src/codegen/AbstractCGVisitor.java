@@ -122,6 +122,11 @@ public abstract class AbstractCGVisitor<TP, TR> implements Visitor<TP, TR> {
     }
 
     @Override
+    public TR visit(DoWhileStatement w, TP p) {
+        throw new UnsupportedOperationException("CG Error in DoWhileStatement");
+    }
+
+    @Override
     public TR visit(ArrayType a, TP p) {
         throw new UnsupportedOperationException("CG Error in ArrayType");
     }

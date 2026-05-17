@@ -158,4 +158,11 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type, Void> {
         w.getExpression().getType().mustBeLogical(w);
         return null;
     }
+
+    @Override
+    public Void visit(DoWhileStatement w, Type p) {
+        super.visit(w, p);
+        w.getExpression().getType().mustBeLogical(w);
+        return null;
+    }
 }
