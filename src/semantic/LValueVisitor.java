@@ -109,6 +109,15 @@ public class LValueVisitor<TP, TR> extends AbstractVisitor<Void, Void>{
     }
 
     @Override
+    public Void visit(LogicAssignment l, Void p) {
+        super.visit(l, p);
+        if (!l.getLeft().getLValue()) {
+            new ErrorType(l.getLine(), l.getColumn(), "LValue expected at logic assignment");
+        }
+        return null;
+    }
+
+    @Override
     public Void visit(InputStatement i, Void p) {
         super.visit(i, p);
         for(Expression e : i.getExpressions()){

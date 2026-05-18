@@ -51,6 +51,33 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<FuncDefinition, Void>{
     }
 
     /*
+    execute[[LogicAssignment : statement -> exp1 exp2]]() =
+        address[[exp1]]
+        <dup>
+        <load>exp1.type.suffix()
+        value[[exp2]]
+        cg.logicalAssignment(statement.operator)
+        <store>exp1.type.suffix()
+    */
+    @Override
+    public Void visit(LogicAssignment a, FuncDefinition f){
+        codeGenerator.line(a.getLine());
+        codeGenerator.comment("' * LogicAssignment");
+
+        a.getLeft().accept(address, null);
+
+        codeGenerator.dup(IntType.getInstance());
+        codeGenerator.load(a.getLeft().getType());
+
+        a.getRight().accept(value, null);
+
+        codeGenerator.logicalAssignment(a.getOperator());
+
+        codeGenerator.store(a.getLeft().getType());
+        return null;
+    }
+
+    /*
     execute[[InputStatement: stmnt -> exp*]]() =
         for(Expression e : exp*){
             address[[e]]()

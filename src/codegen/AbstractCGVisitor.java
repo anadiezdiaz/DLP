@@ -97,6 +97,11 @@ public abstract class AbstractCGVisitor<TP, TR> implements Visitor<TP, TR> {
     }
 
     @Override
+    public TR visit(LogicAssignment l, TP p) {
+        throw new UnsupportedOperationException("CG Error in LogicAssignment");
+    }
+
+    @Override
     public TR visit(IfElseStatement i, TP p) {
         throw new UnsupportedOperationException("CG Error in IfElseStatement");
     }

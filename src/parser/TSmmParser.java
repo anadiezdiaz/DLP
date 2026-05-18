@@ -1,4 +1,4 @@
-// Generated from C:/Users/UO288302/IdeaProjects/DLP/src/parser/TSmm.g4 by ANTLR 4.13.2
+// Generated from C:/Users/Ana/IdeaProjects/DLP/src/parser/TSmm.g4 by ANTLR 4.13.2
 package parser;
 
 import ast.definitions.*;
@@ -6,12 +6,15 @@ import ast.expressions.*;
 import ast.statements.*;
 import ast.types.*;
 import ast.*;
+import errorhandler.*;
 
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.misc.*;
 import org.antlr.v4.runtime.tree.*;
 import java.util.List;
+import java.util.Iterator;
 import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast", "CheckReturnValue", "this-escape"})
@@ -27,8 +30,8 @@ public class TSmmParser extends Parser {
 		T__17=18, T__18=19, T__19=20, T__20=21, T__21=22, T__22=23, T__23=24, 
 		T__24=25, T__25=26, T__26=27, T__27=28, T__28=29, T__29=30, T__30=31, 
 		T__31=32, T__32=33, T__33=34, T__34=35, T__35=36, T__36=37, T__37=38, 
-		T__38=39, INT_CONSTANT=40, SIMPLE_COMMENT=41, MULTIPLE_COMMENT=42, CHAR_CONSTANT=43, 
-		WHITESPACES=44, EXP=45, REAL_CONSTANT=46, ID=47;
+		T__38=39, T__39=40, T__40=41, INT_CONSTANT=42, SIMPLE_COMMENT=43, MULTIPLE_COMMENT=44, 
+		CHAR_CONSTANT=45, WHITESPACES=46, EXP=47, REAL_CONSTANT=48, ID=49;
 	public static final int
 		RULE_program = 0, RULE_definition = 1, RULE_var_definition = 2, RULE_func_definition = 3, 
 		RULE_arguments = 4, RULE_main_definition = 5, RULE_func_body = 6, RULE_expression = 7, 
@@ -49,7 +52,7 @@ public class TSmmParser extends Parser {
 			"'{'", "'}'", "'main'", "'['", "']'", "'.'", "'as'", "'-'", "'!'", "'*'", 
 			"'/'", "'%'", "'+'", "'>'", "'>='", "'<'", "'<='", "'!='", "'=='", "'&&'", 
 			"'||'", "'int'", "'number'", "'char'", "'log'", "'input'", "'='", "'if'", 
-			"'else'", "'while'", "'return'"
+			"'else'", "'while'", "'return'", "'&&='", "'||='"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
@@ -58,8 +61,9 @@ public class TSmmParser extends Parser {
 			null, null, null, null, null, null, null, null, null, null, null, null, 
 			null, null, null, null, null, null, null, null, null, null, null, null, 
 			null, null, null, null, null, null, null, null, null, null, null, null, 
-			null, null, null, null, "INT_CONSTANT", "SIMPLE_COMMENT", "MULTIPLE_COMMENT", 
-			"CHAR_CONSTANT", "WHITESPACES", "EXP", "REAL_CONSTANT", "ID"
+			null, null, null, null, null, null, "INT_CONSTANT", "SIMPLE_COMMENT", 
+			"MULTIPLE_COMMENT", "CHAR_CONSTANT", "WHITESPACES", "EXP", "REAL_CONSTANT", 
+			"ID"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -611,7 +615,7 @@ public class TSmmParser extends Parser {
 			setState(136);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 221920960380992L) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 884926471929920L) != 0)) {
 				{
 				{
 				setState(131);
@@ -1109,6 +1113,7 @@ public class TSmmParser extends Parser {
 		public BlockContext b1;
 		public BlockContext b2;
 		public Func_invocationContext f;
+		public Token OP;
 		public Expression_listContext expression_list() {
 			return getRuleContext(Expression_listContext.class,0);
 		}
@@ -1136,8 +1141,9 @@ public class TSmmParser extends Parser {
 	public final StatementContext statement() throws RecognitionException {
 		StatementContext _localctx = new StatementContext(_ctx, getState());
 		enterRule(_localctx, 20, RULE_statement);
+		int _la;
 		try {
-			setState(286);
+			setState(292);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,18,_ctx) ) {
 			case 1:
@@ -1245,6 +1251,29 @@ public class TSmmParser extends Parser {
 				_localctx.ast.add(((StatementContext)_localctx).f.ast);
 				}
 				break;
+			case 8:
+				enterOuterAlt(_localctx, 8);
+				{
+				setState(286);
+				((StatementContext)_localctx).e1 = expression(0);
+				setState(287);
+				((StatementContext)_localctx).OP = _input.LT(1);
+				_la = _input.LA(1);
+				if ( !(_la==T__39 || _la==T__40) ) {
+					((StatementContext)_localctx).OP = (Token)_errHandler.recoverInline(this);
+				}
+				else {
+					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+					_errHandler.reportMatch(this);
+					consume();
+				}
+				setState(288);
+				((StatementContext)_localctx).e2 = expression(0);
+				setState(289);
+				match(T__3);
+				_localctx.ast.add(new LogicAssignment(((StatementContext)_localctx).e1.ast.getLine(), ((StatementContext)_localctx).e1.ast.getColumn(), ((StatementContext)_localctx).e1.ast, ((StatementContext)_localctx).e2.ast, (((StatementContext)_localctx).OP!=null?((StatementContext)_localctx).OP.getText():null)));
+				}
+				break;
 			}
 		}
 		catch (RecognitionException re) {
@@ -1281,22 +1310,22 @@ public class TSmmParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(288);
+			setState(294);
 			((Func_invocationContext)_localctx).ID = match(ID);
-			setState(289);
+			setState(295);
 			match(T__5);
-			setState(293);
+			setState(299);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 221001837379648L) != 0)) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 884007348928576L) != 0)) {
 				{
-				setState(290);
+				setState(296);
 				((Func_invocationContext)_localctx).expression_list = expression_list();
 				((Func_invocationContext)_localctx).params = ((Func_invocationContext)_localctx).expression_list.ast;
 				}
 			}
 
-			setState(295);
+			setState(301);
 			match(T__6);
 
 			        ((Func_invocationContext)_localctx).ast =  new FunctionInvocation(((Func_invocationContext)_localctx).ID.getLine(), ((Func_invocationContext)_localctx).ID.getCharPositionInLine()+1, _localctx.params,
@@ -1339,23 +1368,23 @@ public class TSmmParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(298);
+			setState(304);
 			((Expression_listContext)_localctx).e1 = expression(0);
 			_localctx.ast.add(((Expression_listContext)_localctx).e1.ast);
-			setState(306);
+			setState(312);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==T__1) {
 				{
 				{
-				setState(300);
+				setState(306);
 				match(T__1);
-				setState(301);
+				setState(307);
 				((Expression_listContext)_localctx).e2 = expression(0);
 				_localctx.ast.add(((Expression_listContext)_localctx).e2.ast);
 				}
 				}
-				setState(308);
+				setState(314);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -1393,7 +1422,7 @@ public class TSmmParser extends Parser {
 		enterRule(_localctx, 26, RULE_block);
 		int _la;
 		try {
-			setState(322);
+			setState(328);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case T__5:
@@ -1410,7 +1439,7 @@ public class TSmmParser extends Parser {
 			case ID:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(309);
+				setState(315);
 				((BlockContext)_localctx).statement = statement();
 				_localctx.ast.addAll(((BlockContext)_localctx).statement.ast);
 				}
@@ -1418,24 +1447,24 @@ public class TSmmParser extends Parser {
 			case T__8:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(312);
-				match(T__8);
 				setState(318);
+				match(T__8);
+				setState(324);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 221920960380992L) != 0)) {
+				while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 884926471929920L) != 0)) {
 					{
 					{
-					setState(313);
+					setState(319);
 					((BlockContext)_localctx).statement = statement();
 					_localctx.ast.addAll(((BlockContext)_localctx).statement.ast);
 					}
 					}
-					setState(320);
+					setState(326);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
-				setState(321);
+				setState(327);
 				match(T__9);
 				}
 				break;
@@ -1480,7 +1509,7 @@ public class TSmmParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\u0004\u0001/\u0145\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
+		"\u0004\u00011\u014b\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
 		"\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004\u0002"+
 		"\u0005\u0007\u0005\u0002\u0006\u0007\u0006\u0002\u0007\u0007\u0007\u0002"+
 		"\b\u0007\b\u0002\t\u0007\t\u0002\n\u0007\n\u0002\u000b\u0007\u000b\u0002"+
@@ -1522,21 +1551,22 @@ public class TSmmParser extends Parser {
 		"\n\u0001\n\u0001\n\u0001\n\u0001\n\u0001\n\u0001\n\u0001\n\u0001\n\u0003"+
 		"\n\u010b\b\n\u0001\n\u0001\n\u0001\n\u0001\n\u0001\n\u0001\n\u0001\n\u0001"+
 		"\n\u0001\n\u0001\n\u0001\n\u0001\n\u0001\n\u0001\n\u0001\n\u0001\n\u0001"+
-		"\n\u0001\n\u0003\n\u011f\b\n\u0001\u000b\u0001\u000b\u0001\u000b\u0001"+
-		"\u000b\u0001\u000b\u0003\u000b\u0126\b\u000b\u0001\u000b\u0001\u000b\u0001"+
-		"\u000b\u0001\f\u0001\f\u0001\f\u0001\f\u0001\f\u0001\f\u0005\f\u0131\b"+
-		"\f\n\f\f\f\u0134\t\f\u0001\r\u0001\r\u0001\r\u0001\r\u0001\r\u0001\r\u0001"+
-		"\r\u0005\r\u013d\b\r\n\r\f\r\u0140\t\r\u0001\r\u0003\r\u0143\b\r\u0001"+
-		"\r\u0000\u0001\u000e\u000e\u0000\u0002\u0004\u0006\b\n\f\u000e\u0010\u0012"+
-		"\u0014\u0016\u0018\u001a\u0000\u0004\u0001\u0000\u0012\u0014\u0002\u0000"+
-		"\u0010\u0010\u0015\u0015\u0001\u0000\u0016\u001b\u0001\u0000\u001c\u001d"+
-		"\u0160\u0000!\u0001\u0000\u0000\u0000\u0002/\u0001\u0000\u0000\u0000\u0004"+
-		"5\u0001\u0000\u0000\u0000\u0006E\u0001\u0000\u0000\u0000\bn\u0001\u0000"+
+		"\n\u0001\n\u0001\n\u0001\n\u0001\n\u0001\n\u0001\n\u0001\n\u0003\n\u0125"+
+		"\b\n\u0001\u000b\u0001\u000b\u0001\u000b\u0001\u000b\u0001\u000b\u0003"+
+		"\u000b\u012c\b\u000b\u0001\u000b\u0001\u000b\u0001\u000b\u0001\f\u0001"+
+		"\f\u0001\f\u0001\f\u0001\f\u0001\f\u0005\f\u0137\b\f\n\f\f\f\u013a\t\f"+
+		"\u0001\r\u0001\r\u0001\r\u0001\r\u0001\r\u0001\r\u0001\r\u0005\r\u0143"+
+		"\b\r\n\r\f\r\u0146\t\r\u0001\r\u0003\r\u0149\b\r\u0001\r\u0000\u0001\u000e"+
+		"\u000e\u0000\u0002\u0004\u0006\b\n\f\u000e\u0010\u0012\u0014\u0016\u0018"+
+		"\u001a\u0000\u0005\u0001\u0000\u0012\u0014\u0002\u0000\u0010\u0010\u0015"+
+		"\u0015\u0001\u0000\u0016\u001b\u0001\u0000\u001c\u001d\u0001\u0000()\u0167"+
+		"\u0000!\u0001\u0000\u0000\u0000\u0002/\u0001\u0000\u0000\u0000\u00045"+
+		"\u0001\u0000\u0000\u0000\u0006E\u0001\u0000\u0000\u0000\bn\u0001\u0000"+
 		"\u0000\u0000\np\u0001\u0000\u0000\u0000\f\u0080\u0001\u0000\u0000\u0000"+
 		"\u000e\u00ab\u0001\u0000\u0000\u0000\u0010\u00e6\u0001\u0000\u0000\u0000"+
-		"\u0012\u00eb\u0001\u0000\u0000\u0000\u0014\u011e\u0001\u0000\u0000\u0000"+
-		"\u0016\u0120\u0001\u0000\u0000\u0000\u0018\u012a\u0001\u0000\u0000\u0000"+
-		"\u001a\u0142\u0001\u0000\u0000\u0000\u001c\u001d\u0003\u0002\u0001\u0000"+
+		"\u0012\u00eb\u0001\u0000\u0000\u0000\u0014\u0124\u0001\u0000\u0000\u0000"+
+		"\u0016\u0126\u0001\u0000\u0000\u0000\u0018\u0130\u0001\u0000\u0000\u0000"+
+		"\u001a\u0148\u0001\u0000\u0000\u0000\u001c\u001d\u0003\u0002\u0001\u0000"+
 		"\u001d\u001e\u0006\u0000\uffff\uffff\u0000\u001e \u0001\u0000\u0000\u0000"+
 		"\u001f\u001c\u0001\u0000\u0000\u0000 #\u0001\u0000\u0000\u0000!\u001f"+
 		"\u0001\u0000\u0000\u0000!\"\u0001\u0000\u0000\u0000\"$\u0001\u0000\u0000"+
@@ -1548,26 +1578,26 @@ public class TSmmParser extends Parser {
 		"\u0000\u0000/-\u0001\u0000\u0000\u0000/0\u0001\u0000\u0000\u000002\u0001"+
 		"\u0000\u0000\u00001/\u0001\u0000\u0000\u000023\u0003\n\u0005\u000034\u0006"+
 		"\u0001\uffff\uffff\u00004\u0003\u0001\u0000\u0000\u000056\u0005\u0001"+
-		"\u0000\u000067\u0005/\u0000\u00007=\u0006\u0002\uffff\uffff\u000089\u0005"+
-		"\u0002\u0000\u00009:\u0005/\u0000\u0000:<\u0006\u0002\uffff\uffff\u0000"+
+		"\u0000\u000067\u00051\u0000\u00007=\u0006\u0002\uffff\uffff\u000089\u0005"+
+		"\u0002\u0000\u00009:\u00051\u0000\u0000:<\u0006\u0002\uffff\uffff\u0000"+
 		";8\u0001\u0000\u0000\u0000<?\u0001\u0000\u0000\u0000=;\u0001\u0000\u0000"+
 		"\u0000=>\u0001\u0000\u0000\u0000>@\u0001\u0000\u0000\u0000?=\u0001\u0000"+
 		"\u0000\u0000@A\u0005\u0003\u0000\u0000AB\u0003\u0010\b\u0000BC\u0005\u0004"+
 		"\u0000\u0000CD\u0006\u0002\uffff\uffff\u0000D\u0005\u0001\u0000\u0000"+
-		"\u0000EF\u0005\u0005\u0000\u0000FG\u0005/\u0000\u0000GH\u0005\u0006\u0000"+
+		"\u0000EF\u0005\u0005\u0000\u0000FG\u00051\u0000\u0000GH\u0005\u0006\u0000"+
 		"\u0000HI\u0003\b\u0004\u0000IJ\u0005\u0007\u0000\u0000JN\u0005\u0003\u0000"+
 		"\u0000KL\u0003\u0010\b\u0000LM\u0006\u0003\uffff\uffff\u0000MO\u0001\u0000"+
 		"\u0000\u0000NK\u0001\u0000\u0000\u0000NO\u0001\u0000\u0000\u0000OQ\u0001"+
 		"\u0000\u0000\u0000PR\u0005\b\u0000\u0000QP\u0001\u0000\u0000\u0000QR\u0001"+
 		"\u0000\u0000\u0000RS\u0001\u0000\u0000\u0000ST\u0005\t\u0000\u0000TU\u0003"+
 		"\f\u0006\u0000UV\u0005\n\u0000\u0000VW\u0006\u0003\uffff\uffff\u0000W"+
-		"\u0007\u0001\u0000\u0000\u0000XY\u0005/\u0000\u0000YZ\u0005\u0003\u0000"+
+		"\u0007\u0001\u0000\u0000\u0000XY\u00051\u0000\u0000YZ\u0005\u0003\u0000"+
 		"\u0000Z[\u0003\u0010\b\u0000[d\u0006\u0004\uffff\uffff\u0000\\]\u0005"+
-		"\u0002\u0000\u0000]^\u0005/\u0000\u0000^_\u0005\u0003\u0000\u0000_`\u0003"+
+		"\u0002\u0000\u0000]^\u00051\u0000\u0000^_\u0005\u0003\u0000\u0000_`\u0003"+
 		"\u0010\b\u0000`a\u0006\u0004\uffff\uffff\u0000ac\u0001\u0000\u0000\u0000"+
 		"b\\\u0001\u0000\u0000\u0000cf\u0001\u0000\u0000\u0000db\u0001\u0000\u0000"+
 		"\u0000de\u0001\u0000\u0000\u0000eo\u0001\u0000\u0000\u0000fd\u0001\u0000"+
-		"\u0000\u0000gh\u0005/\u0000\u0000hi\u0005\u0003\u0000\u0000ij\u0003\u0010"+
+		"\u0000\u0000gh\u00051\u0000\u0000hi\u0005\u0003\u0000\u0000ij\u0003\u0010"+
 		"\b\u0000jk\u0006\u0004\uffff\uffff\u0000km\u0001\u0000\u0000\u0000lg\u0001"+
 		"\u0000\u0000\u0000lm\u0001\u0000\u0000\u0000mo\u0001\u0000\u0000\u0000"+
 		"nX\u0001\u0000\u0000\u0000nl\u0001\u0000\u0000\u0000o\t\u0001\u0000\u0000"+
@@ -1594,10 +1624,10 @@ public class TSmmParser extends Parser {
 		"\u000b\u009a\u009b\u0006\u0007\uffff\uffff\u0000\u009b\u00ac\u0001\u0000"+
 		"\u0000\u0000\u009c\u009d\u0005\u0011\u0000\u0000\u009d\u009e\u0003\u000e"+
 		"\u0007\n\u009e\u009f\u0006\u0007\uffff\uffff\u0000\u009f\u00ac\u0001\u0000"+
-		"\u0000\u0000\u00a0\u00a1\u0005/\u0000\u0000\u00a1\u00ac\u0006\u0007\uffff"+
-		"\uffff\u0000\u00a2\u00a3\u0005(\u0000\u0000\u00a3\u00ac\u0006\u0007\uffff"+
-		"\uffff\u0000\u00a4\u00a5\u0005+\u0000\u0000\u00a5\u00ac\u0006\u0007\uffff"+
-		"\uffff\u0000\u00a6\u00a7\u0005.\u0000\u0000\u00a7\u00ac\u0006\u0007\uffff"+
+		"\u0000\u0000\u00a0\u00a1\u00051\u0000\u0000\u00a1\u00ac\u0006\u0007\uffff"+
+		"\uffff\u0000\u00a2\u00a3\u0005*\u0000\u0000\u00a3\u00ac\u0006\u0007\uffff"+
+		"\uffff\u0000\u00a4\u00a5\u0005-\u0000\u0000\u00a5\u00ac\u0006\u0007\uffff"+
+		"\uffff\u0000\u00a6\u00a7\u00050\u0000\u0000\u00a7\u00ac\u0006\u0007\uffff"+
 		"\uffff\u0000\u00a8\u00a9\u0003\u0016\u000b\u0000\u00a9\u00aa\u0006\u0007"+
 		"\uffff\uffff\u0000\u00aa\u00ac\u0001\u0000\u0000\u0000\u00ab\u008b\u0001"+
 		"\u0000\u0000\u0000\u00ab\u0091\u0001\u0000\u0000\u0000\u00ab\u0098\u0001"+
@@ -1618,14 +1648,14 @@ public class TSmmParser extends Parser {
 		"\u00c3\u0005\f\u0000\u0000\u00c3\u00c4\u0003\u000e\u0007\u0000\u00c4\u00c5"+
 		"\u0005\r\u0000\u0000\u00c5\u00c6\u0006\u0007\uffff\uffff\u0000\u00c6\u00cc"+
 		"\u0001\u0000\u0000\u0000\u00c7\u00c8\n\r\u0000\u0000\u00c8\u00c9\u0005"+
-		"\u000e\u0000\u0000\u00c9\u00ca\u0005/\u0000\u0000\u00ca\u00cc\u0006\u0007"+
+		"\u000e\u0000\u0000\u00c9\u00ca\u00051\u0000\u0000\u00ca\u00cc\u0006\u0007"+
 		"\uffff\uffff\u0000\u00cb\u00ad\u0001\u0000\u0000\u0000\u00cb\u00b2\u0001"+
 		"\u0000\u0000\u0000\u00cb\u00b7\u0001\u0000\u0000\u0000\u00cb\u00bc\u0001"+
 		"\u0000\u0000\u0000\u00cb\u00c1\u0001\u0000\u0000\u0000\u00cb\u00c7\u0001"+
 		"\u0000\u0000\u0000\u00cc\u00cf\u0001\u0000\u0000\u0000\u00cd\u00cb\u0001"+
 		"\u0000\u0000\u0000\u00cd\u00ce\u0001\u0000\u0000\u0000\u00ce\u000f\u0001"+
 		"\u0000\u0000\u0000\u00cf\u00cd\u0001\u0000\u0000\u0000\u00d0\u00d1\u0005"+
-		"\f\u0000\u0000\u00d1\u00d2\u0005(\u0000\u0000\u00d2\u00d3\u0005\r\u0000"+
+		"\f\u0000\u0000\u00d1\u00d2\u0005*\u0000\u0000\u00d2\u00d3\u0005\r\u0000"+
 		"\u0000\u00d3\u00d4\u0003\u0010\b\u0000\u00d4\u00d5\u0006\b\uffff\uffff"+
 		"\u0000\u00d5\u00e7\u0001\u0000\u0000\u0000\u00d6\u00da\u0005\f\u0000\u0000"+
 		"\u00d7\u00d8\u0003\u0012\t\u0000\u00d8\u00d9\u0006\b\uffff\uffff\u0000"+
@@ -1645,53 +1675,56 @@ public class TSmmParser extends Parser {
 		"\u00ee\u0001\u0000\u0000\u0000\u00ee\u00ef\u0001\u0000\u0000\u0000\u00ef"+
 		"\u00f0\u0006\t\uffff\uffff\u0000\u00f0\u0013\u0001\u0000\u0000\u0000\u00f1"+
 		"\u00f2\u0005!\u0000\u0000\u00f2\u00f3\u0003\u0018\f\u0000\u00f3\u00f4"+
-		"\u0005\u0004\u0000\u0000\u00f4\u00f5\u0006\n\uffff\uffff\u0000\u00f5\u011f"+
+		"\u0005\u0004\u0000\u0000\u00f4\u00f5\u0006\n\uffff\uffff\u0000\u00f5\u0125"+
 		"\u0001\u0000\u0000\u0000\u00f6\u00f7\u0005\"\u0000\u0000\u00f7\u00f8\u0003"+
 		"\u0018\f\u0000\u00f8\u00f9\u0005\u0004\u0000\u0000\u00f9\u00fa\u0006\n"+
-		"\uffff\uffff\u0000\u00fa\u011f\u0001\u0000\u0000\u0000\u00fb\u00fc\u0003"+
+		"\uffff\uffff\u0000\u00fa\u0125\u0001\u0000\u0000\u0000\u00fb\u00fc\u0003"+
 		"\u000e\u0007\u0000\u00fc\u00fd\u0005#\u0000\u0000\u00fd\u00fe\u0003\u000e"+
 		"\u0007\u0000\u00fe\u00ff\u0005\u0004\u0000\u0000\u00ff\u0100\u0006\n\uffff"+
-		"\uffff\u0000\u0100\u011f\u0001\u0000\u0000\u0000\u0101\u0102\u0005$\u0000"+
+		"\uffff\u0000\u0100\u0125\u0001\u0000\u0000\u0000\u0101\u0102\u0005$\u0000"+
 		"\u0000\u0102\u0103\u0005\u0006\u0000\u0000\u0103\u0104\u0003\u000e\u0007"+
 		"\u0000\u0104\u0105\u0005\u0007\u0000\u0000\u0105\u010a\u0003\u001a\r\u0000"+
 		"\u0106\u0107\u0005%\u0000\u0000\u0107\u0108\u0003\u001a\r\u0000\u0108"+
 		"\u0109\u0006\n\uffff\uffff\u0000\u0109\u010b\u0001\u0000\u0000\u0000\u010a"+
 		"\u0106\u0001\u0000\u0000\u0000\u010a\u010b\u0001\u0000\u0000\u0000\u010b"+
 		"\u010c\u0001\u0000\u0000\u0000\u010c\u010d\u0006\n\uffff\uffff\u0000\u010d"+
-		"\u011f\u0001\u0000\u0000\u0000\u010e\u010f\u0005&\u0000\u0000\u010f\u0110"+
+		"\u0125\u0001\u0000\u0000\u0000\u010e\u010f\u0005&\u0000\u0000\u010f\u0110"+
 		"\u0005\u0006\u0000\u0000\u0110\u0111\u0003\u000e\u0007\u0000\u0111\u0112"+
 		"\u0005\u0007\u0000\u0000\u0112\u0113\u0003\u001a\r\u0000\u0113\u0114\u0006"+
-		"\n\uffff\uffff\u0000\u0114\u011f\u0001\u0000\u0000\u0000\u0115\u0116\u0005"+
+		"\n\uffff\uffff\u0000\u0114\u0125\u0001\u0000\u0000\u0000\u0115\u0116\u0005"+
 		"\'\u0000\u0000\u0116\u0117\u0003\u000e\u0007\u0000\u0117\u0118\u0005\u0004"+
-		"\u0000\u0000\u0118\u0119\u0006\n\uffff\uffff\u0000\u0119\u011f\u0001\u0000"+
+		"\u0000\u0000\u0118\u0119\u0006\n\uffff\uffff\u0000\u0119\u0125\u0001\u0000"+
 		"\u0000\u0000\u011a\u011b\u0003\u0016\u000b\u0000\u011b\u011c\u0005\u0004"+
-		"\u0000\u0000\u011c\u011d\u0006\n\uffff\uffff\u0000\u011d\u011f\u0001\u0000"+
-		"\u0000\u0000\u011e\u00f1\u0001\u0000\u0000\u0000\u011e\u00f6\u0001\u0000"+
-		"\u0000\u0000\u011e\u00fb\u0001\u0000\u0000\u0000\u011e\u0101\u0001\u0000"+
-		"\u0000\u0000\u011e\u010e\u0001\u0000\u0000\u0000\u011e\u0115\u0001\u0000"+
-		"\u0000\u0000\u011e\u011a\u0001\u0000\u0000\u0000\u011f\u0015\u0001\u0000"+
-		"\u0000\u0000\u0120\u0121\u0005/\u0000\u0000\u0121\u0125\u0005\u0006\u0000"+
-		"\u0000\u0122\u0123\u0003\u0018\f\u0000\u0123\u0124\u0006\u000b\uffff\uffff"+
-		"\u0000\u0124\u0126\u0001\u0000\u0000\u0000\u0125\u0122\u0001\u0000\u0000"+
-		"\u0000\u0125\u0126\u0001\u0000\u0000\u0000\u0126\u0127\u0001\u0000\u0000"+
-		"\u0000\u0127\u0128\u0005\u0007\u0000\u0000\u0128\u0129\u0006\u000b\uffff"+
-		"\uffff\u0000\u0129\u0017\u0001\u0000\u0000\u0000\u012a\u012b\u0003\u000e"+
-		"\u0007\u0000\u012b\u0132\u0006\f\uffff\uffff\u0000\u012c\u012d\u0005\u0002"+
-		"\u0000\u0000\u012d\u012e\u0003\u000e\u0007\u0000\u012e\u012f\u0006\f\uffff"+
-		"\uffff\u0000\u012f\u0131\u0001\u0000\u0000\u0000\u0130\u012c\u0001\u0000"+
-		"\u0000\u0000\u0131\u0134\u0001\u0000\u0000\u0000\u0132\u0130\u0001\u0000"+
-		"\u0000\u0000\u0132\u0133\u0001\u0000\u0000\u0000\u0133\u0019\u0001\u0000"+
-		"\u0000\u0000\u0134\u0132\u0001\u0000\u0000\u0000\u0135\u0136\u0003\u0014"+
-		"\n\u0000\u0136\u0137\u0006\r\uffff\uffff\u0000\u0137\u0143\u0001\u0000"+
-		"\u0000\u0000\u0138\u013e\u0005\t\u0000\u0000\u0139\u013a\u0003\u0014\n"+
-		"\u0000\u013a\u013b\u0006\r\uffff\uffff\u0000\u013b\u013d\u0001\u0000\u0000"+
-		"\u0000\u013c\u0139\u0001\u0000\u0000\u0000\u013d\u0140\u0001\u0000\u0000"+
-		"\u0000\u013e\u013c\u0001\u0000\u0000\u0000\u013e\u013f\u0001\u0000\u0000"+
-		"\u0000\u013f\u0141\u0001\u0000\u0000\u0000\u0140\u013e\u0001\u0000\u0000"+
-		"\u0000\u0141\u0143\u0005\n\u0000\u0000\u0142\u0135\u0001\u0000\u0000\u0000"+
-		"\u0142\u0138\u0001\u0000\u0000\u0000\u0143\u001b\u0001\u0000\u0000\u0000"+
-		"\u0017!-/=NQdln\u0080\u0088\u00ab\u00cb\u00cd\u00dc\u00e6\u00ed\u010a"+
-		"\u011e\u0125\u0132\u013e\u0142";
+		"\u0000\u0000\u011c\u011d\u0006\n\uffff\uffff\u0000\u011d\u0125\u0001\u0000"+
+		"\u0000\u0000\u011e\u011f\u0003\u000e\u0007\u0000\u011f\u0120\u0007\u0004"+
+		"\u0000\u0000\u0120\u0121\u0003\u000e\u0007\u0000\u0121\u0122\u0005\u0004"+
+		"\u0000\u0000\u0122\u0123\u0006\n\uffff\uffff\u0000\u0123\u0125\u0001\u0000"+
+		"\u0000\u0000\u0124\u00f1\u0001\u0000\u0000\u0000\u0124\u00f6\u0001\u0000"+
+		"\u0000\u0000\u0124\u00fb\u0001\u0000\u0000\u0000\u0124\u0101\u0001\u0000"+
+		"\u0000\u0000\u0124\u010e\u0001\u0000\u0000\u0000\u0124\u0115\u0001\u0000"+
+		"\u0000\u0000\u0124\u011a\u0001\u0000\u0000\u0000\u0124\u011e\u0001\u0000"+
+		"\u0000\u0000\u0125\u0015\u0001\u0000\u0000\u0000\u0126\u0127\u00051\u0000"+
+		"\u0000\u0127\u012b\u0005\u0006\u0000\u0000\u0128\u0129\u0003\u0018\f\u0000"+
+		"\u0129\u012a\u0006\u000b\uffff\uffff\u0000\u012a\u012c\u0001\u0000\u0000"+
+		"\u0000\u012b\u0128\u0001\u0000\u0000\u0000\u012b\u012c\u0001\u0000\u0000"+
+		"\u0000\u012c\u012d\u0001\u0000\u0000\u0000\u012d\u012e\u0005\u0007\u0000"+
+		"\u0000\u012e\u012f\u0006\u000b\uffff\uffff\u0000\u012f\u0017\u0001\u0000"+
+		"\u0000\u0000\u0130\u0131\u0003\u000e\u0007\u0000\u0131\u0138\u0006\f\uffff"+
+		"\uffff\u0000\u0132\u0133\u0005\u0002\u0000\u0000\u0133\u0134\u0003\u000e"+
+		"\u0007\u0000\u0134\u0135\u0006\f\uffff\uffff\u0000\u0135\u0137\u0001\u0000"+
+		"\u0000\u0000\u0136\u0132\u0001\u0000\u0000\u0000\u0137\u013a\u0001\u0000"+
+		"\u0000\u0000\u0138\u0136\u0001\u0000\u0000\u0000\u0138\u0139\u0001\u0000"+
+		"\u0000\u0000\u0139\u0019\u0001\u0000\u0000\u0000\u013a\u0138\u0001\u0000"+
+		"\u0000\u0000\u013b\u013c\u0003\u0014\n\u0000\u013c\u013d\u0006\r\uffff"+
+		"\uffff\u0000\u013d\u0149\u0001\u0000\u0000\u0000\u013e\u0144\u0005\t\u0000"+
+		"\u0000\u013f\u0140\u0003\u0014\n\u0000\u0140\u0141\u0006\r\uffff\uffff"+
+		"\u0000\u0141\u0143\u0001\u0000\u0000\u0000\u0142\u013f\u0001\u0000\u0000"+
+		"\u0000\u0143\u0146\u0001\u0000\u0000\u0000\u0144\u0142\u0001\u0000\u0000"+
+		"\u0000\u0144\u0145\u0001\u0000\u0000\u0000\u0145\u0147\u0001\u0000\u0000"+
+		"\u0000\u0146\u0144\u0001\u0000\u0000\u0000\u0147\u0149\u0005\n\u0000\u0000"+
+		"\u0148\u013b\u0001\u0000\u0000\u0000\u0148\u013e\u0001\u0000\u0000\u0000"+
+		"\u0149\u001b\u0001\u0000\u0000\u0000\u0017!-/=NQdln\u0080\u0088\u00ab"+
+		"\u00cb\u00cd\u00dc\u00e6\u00ed\u010a\u0124\u012b\u0138\u0144\u0148";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

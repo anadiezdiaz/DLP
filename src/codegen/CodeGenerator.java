@@ -140,6 +140,13 @@ public class CodeGenerator {
         }
     }
 
+    public void logicalAssignment(String op){
+        switch(op){
+            case "&&=": and(); break;
+            case "||=": or(); break;
+        }
+    }
+
     public void and(){
         out.println("\tand");
         out.flush();
