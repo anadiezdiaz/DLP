@@ -122,6 +122,11 @@ public abstract class AbstractCGVisitor<TP, TR> implements Visitor<TP, TR> {
     }
 
     @Override
+    public TR visit(ForStatement f, TP p) {
+        throw new UnsupportedOperationException("CG Error in ForStatement");
+    }
+
+    @Override
     public TR visit(ArrayType a, TP p) {
         throw new UnsupportedOperationException("CG Error in ArrayType");
     }

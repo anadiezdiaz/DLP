@@ -90,6 +90,13 @@ statement returns [List<Statement> ast = new ArrayList<Statement>();] locals [Li
     | 'while' '(' e1=expression ')' b1=block {$ast.add(new WhileStatement($e1.ast.getLine(), $e1.ast.getColumn(), $e1.ast, $b1.ast));}
     | 'return' e1=expression ';' {$ast.add(new ReturnStatement($e1.ast.getLine(), $e1.ast.getColumn(), $e1.ast));}
     | f=func_invocation ';' {$ast.add($f.ast);}
+    | 'for' '(' s1=forstmnt ';' e1=expression ';' s2=forstmnt ')' f1=forblock {$ast.add(new ForStatement($e1.ast.getLine(), $e1.ast.getColumn(), $s1.ast, $e1.ast, $s2.ast, $f1.ast));}
+    ;
+forblock returns [List<Statement> ast = new ArrayList<Statement>()]:
+    '{' (statement{$ast.addAll($statement.ast);})* '}'
+    ;
+forstmnt returns [Statement ast]:
+    e1=expression '=' e2=expression {$ast=new Assignment($e1.ast.getLine(), $e1.ast.getColumn(), $e1.ast, $e2.ast);}
     ;
 func_invocation returns [FunctionInvocation ast] locals [List<Expression> params = new ArrayList<Expression>()]:
     ID  '(' (expression_list{$params=$expression_list.ast;})? ')'

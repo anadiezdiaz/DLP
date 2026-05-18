@@ -310,4 +310,48 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<FuncDefinition, Void>{
         }
         return null;
     }
+
+    /*
+    execute[[ForStatement: stmnt1 -> stmnt2 exp stmnt3 stmnt4*]]()=
+        String condLabel = codegenerator.nextLabel();
+        String endLabel = codegenerator.nextLabel();
+        execute[[stmnt2]]
+        condLabel <:>
+        value[[exp]]
+        <jz> endLabel
+        stmnt4*.forEach(stmnt -> execute[[stmnt]])
+        execute[[stmnt3]]
+        <jmp> condLabel
+        endLabel <:>
+     */
+    @Override
+    public Void visit(ForStatement f, FuncDefinition d){
+        String condLabel = codeGenerator.getLabel();
+        String endLabel = codeGenerator.getLabel();
+
+        codeGenerator.line(f.getLine());
+        codeGenerator.comment("' * For");
+
+        f.getPre().accept(this, d);
+
+        codeGenerator.line(f.getLine());
+        codeGenerator.label(condLabel);
+
+        f.getExpression().accept(value, null);
+        codeGenerator.convertTo(f.getExpression().getType(), IntType.getInstance());
+        codeGenerator.jz(endLabel);
+
+        codeGenerator.comment("' * For body");
+
+        for(Statement s : f.getBody()){
+            s.accept(this, d);
+        }
+
+        f.getPost().accept(this, d);
+
+        codeGenerator.jmp(condLabel);
+        codeGenerator.label(endLabel);
+
+        return null;
+    }
 }
