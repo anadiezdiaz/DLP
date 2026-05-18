@@ -109,6 +109,15 @@ public class LValueVisitor<TP, TR> extends AbstractVisitor<Void, Void>{
     }
 
     @Override
+    public Void visit(IncDecStatement i, Void p) {
+        super.visit(i, p);
+        if (!i.getExpression().getLValue()) {
+            new ErrorType(i.getLine(), i.getColumn(), "LValue expected at inc-dec statement");
+        }
+        return null;
+    }
+
+    @Override
     public Void visit(InputStatement i, Void p) {
         super.visit(i, p);
         for(Expression e : i.getExpressions()){

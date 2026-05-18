@@ -97,6 +97,11 @@ public abstract class AbstractCGVisitor<TP, TR> implements Visitor<TP, TR> {
     }
 
     @Override
+    public TR visit(IncDecStatement i, TP p) {
+        throw new UnsupportedOperationException("CG Error in IncDecStatement");
+    }
+
+    @Override
     public TR visit(IfElseStatement i, TP p) {
         throw new UnsupportedOperationException("CG Error in IfElseStatement");
     }

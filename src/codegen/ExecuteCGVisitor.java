@@ -51,6 +51,29 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<FuncDefinition, Void>{
     }
 
     /*
+    execute[[IncDecStatement : stmnt -> exp]]() =
+        address[[exp]]
+        value[[exp]]
+        <pushi> 1
+        cg.arithmeticIncDec(exp.type, stmnt.operator)
+        <store>exp.type.suffix()
+    */
+    @Override
+    public Void visit(IncDecStatement i, FuncDefinition f) {
+        codeGenerator.line(i.getLine());
+        codeGenerator.comment("' * IncDecStatement");
+
+        i.getExpression().accept(address, null);
+        i.getExpression().accept(value, null);
+
+        codeGenerator.push(IntType.getInstance(), 1);
+        codeGenerator.arithmeticIncDec(i.getExpression().getType(), i.getOperator());
+
+        codeGenerator.store(i.getExpression().getType());
+        return null;
+    }
+
+    /*
     execute[[InputStatement: stmnt -> exp*]]() =
         for(Expression e : exp*){
             address[[e]]()

@@ -1,0 +1,8 @@
+function main(): void {
+    let i: int;
+    i = 0;
+    while (i < 3){
+        i++;
+    }
+    log 'i', ':', ' ', i;
+}

@@ -120,6 +120,15 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type, Void> {
     }
 
     @Override
+    public Void visit(IncDecStatement i, Type p) {
+        super.visit(i, p);
+        if (i.getExpression().getType() != IntType.getInstance()) {
+            new ErrorType(i.getLine(), i.getColumn(), "Int type expected in inc-dec statement");
+        }
+        return null;
+    }
+
+    @Override
     public Void visit(IfElseStatement i, Type p) {
         super.visit(i, p);
         i.getExpression().getType().mustBeLogical(i);

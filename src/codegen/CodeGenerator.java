@@ -66,6 +66,13 @@ public class CodeGenerator {
         }
     }
 
+    public void arithmeticIncDec(Type type, String op){
+        switch(op){
+            case "++": add(type); break;
+            case "--": sub(type); break;
+        }
+    }
+
     public void add(Type type){
         out.println("\tadd" + type.suffix());
         out.flush();
