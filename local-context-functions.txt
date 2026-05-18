@@ -1,0 +1,20 @@
+function main(): void {
+	let a : int;
+	a = 1;
+	{
+		let a : int;
+        a = 2;
+		log a; // Imprime 2
+	}
+	log a; // Imprime 1
+	if (1) {
+		let a : int;
+        a = 3;
+		let b : int;
+        b = 1;
+		log a; // Imprime 3
+	}
+	log a; // Imprime 1
+	//log b;
+	//Si se descomenta debe dar error por variable no definida
+}

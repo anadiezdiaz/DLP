@@ -310,4 +310,18 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<FuncDefinition, Void>{
         }
         return null;
     }
+
+    /*
+    execute[[BlockStatement: stmnt1 -> stmnt2*]]()=
+        stmnt2*.forEach(s->execute[[s]]())
+     */
+    @Override
+    public Void visit(BlockStatement b, FuncDefinition f) {
+        for (Statement s : b.getStatements()) {
+            if (!(s instanceof VarDefinition)) {
+                s.accept(this, f);
+            }
+        }
+        return null;
+    }
 }

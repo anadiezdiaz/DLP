@@ -5,6 +5,7 @@ import ast.Statement;
 import ast.definitions.FuncDefinition;
 import ast.definitions.VarDefinition;
 import ast.expressions.Variable;
+import ast.statements.BlockStatement;
 import ast.types.ErrorType;
 import ast.types.FunctionType;
 import symboltable.SymbolTable;
@@ -35,12 +36,15 @@ public class IdentificationVisitor extends AbstractVisitor<Void, Void>{
     @Override
     public Void visit(Variable v, Void p) {
         Definition def = symbolTable.find(v.getName());
-        if(def != null){
-            v.setDefinition(def);
-        }else{
-            def = new VarDefinition(0,0, v.getName(),
-                new ErrorType(v.getLine(), v.getColumn(), "No VarDefinition associated to variable '" + v.getName() + "'"));
+
+        if (def == null) {
+            def = new VarDefinition(0, 0, v.getName(),
+                    new ErrorType(v.getLine(), v.getColumn(),
+                            "No VarDefinition associated to variable '" + v.getName() + "'"));
         }
+
+        v.setDefinition(def);
+
         super.visit(v, p);
         return null;
     }
@@ -54,6 +58,18 @@ public class IdentificationVisitor extends AbstractVisitor<Void, Void>{
         }
         //super.visit(f, p);
         f.getReturnType().accept(this, p);
+        return null;
+    }
+
+    @Override
+    public Void visit(BlockStatement b, Void p) {
+        symbolTable.set();
+
+        for (Statement s : b.getStatements()) {
+            s.accept(this, p);
+        }
+
+        symbolTable.reset();
         return null;
     }
 

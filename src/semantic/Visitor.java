@@ -37,6 +37,7 @@ public interface Visitor<TP, TR> {
     TR visit (LogStatement l, TP p);
     TR visit (ReturnStatement r, TP p);
     TR visit (WhileStatement w, TP p);
+    TR visit(BlockStatement b, TP tp);
 
     //visit para types
     TR visit (ArrayType a, TP p);
@@ -48,4 +49,6 @@ public interface Visitor<TP, TR> {
     TR visit (RecordField r, TP p);
     TR visit (RecordType r, TP p);
     TR visit (VoidType v, TP p);
+
+
 }

@@ -90,6 +90,13 @@ statement returns [List<Statement> ast = new ArrayList<Statement>();] locals [Li
     | 'while' '(' e1=expression ')' b1=block {$ast.add(new WhileStatement($e1.ast.getLine(), $e1.ast.getColumn(), $e1.ast, $b1.ast));}
     | 'return' e1=expression ';' {$ast.add(new ReturnStatement($e1.ast.getLine(), $e1.ast.getColumn(), $e1.ast));}
     | f=func_invocation ';' {$ast.add($f.ast);}
+    | b=local_block {$ast.add($b.ast);}
+    ;
+local_block returns [BlockStatement ast] locals [List<Statement> statements = new ArrayList<Statement>()]:
+    l='{' (var_definition {$statements.addAll($var_definition.ast);}
+          | statement {$statements.addAll($statement.ast);}
+          )* '}'
+    {$ast = new BlockStatement($l.getLine(), $l.getCharPositionInLine()+1, $statements);}
     ;
 func_invocation returns [FunctionInvocation ast] locals [List<Expression> params = new ArrayList<Expression>()]:
     ID  '(' (expression_list{$params=$expression_list.ast;})? ')'
@@ -103,7 +110,6 @@ expression_list returns [List<Expression> ast = new ArrayList<Expression>();]:
     ;
 block returns [List<Statement> ast = new ArrayList<Statement>()]:
     statement {$ast.addAll($statement.ast);}
-    | '{' (statement{$ast.addAll($statement.ast);})* '}'
     ;
 
 INT_CONSTANT: [1-9] [0-9]*

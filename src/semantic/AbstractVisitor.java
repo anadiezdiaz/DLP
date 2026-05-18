@@ -218,4 +218,12 @@ public class AbstractVisitor<TP, TR> implements Visitor<TP, TR> {
     public TR visit(VoidType v, TP p) {
         return null;
     }
+
+    @Override
+    public TR visit(BlockStatement b, TP p) {
+        for (Statement s : b.getStatements()) {
+            s.accept(this, p);
+        }
+        return null;
+    }
 }
