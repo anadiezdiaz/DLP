@@ -55,11 +55,13 @@ expression returns [Expression ast]:
     | e1=expression OP=('+'|'-') e2=expression {$ast = new Arithmetic($e1.ast.getLine(), $e1.ast.getColumn(), $e1.ast, $e2.ast, $OP.text);}
     | e1=expression OP=('>'|'>='|'<'|'<='|'!='|'==') e2=expression {$ast = new Comparison($e1.ast.getLine(), $e1.ast.getColumn(), $e1.ast, $e2.ast, $OP.text);}
     | e1=expression OP=('&&'|'||') e2=expression {$ast = new Logic($e1.ast.getLine(), $e2.ast.getColumn(), $e1.ast, $e2.ast, $OP.text);}
+    | t='true' {$ast = new BooleanLiteral($t.getLine(), $t.getCharPositionInLine()+1, true);}
+    | f='false' {$ast = new BooleanLiteral($f.getLine(), $f.getCharPositionInLine()+1, false);}
     | ID {$ast = new Variable($ID.getLine(), $ID.getCharPositionInLine()+1, $ID.text);}
     | INT_CONSTANT {$ast = new IntLiteral($INT_CONSTANT.getLine(), $INT_CONSTANT.getCharPositionInLine()+1, LexerHelper.lexemeToInt($INT_CONSTANT.text));}
     | CHAR_CONSTANT {$ast = new CharLiteral($CHAR_CONSTANT.getLine(), $CHAR_CONSTANT.getCharPositionInLine()+1, LexerHelper.lexemeToChar($CHAR_CONSTANT.text));}
     | REAL_CONSTANT {$ast = new NumberLiteral($REAL_CONSTANT.getLine(), $REAL_CONSTANT.getCharPositionInLine()+1, LexerHelper.lexemeToReal($REAL_CONSTANT.text));}
-    | f=func_invocation {$ast = $f.ast;}
+    | fu=func_invocation {$ast = $fu.ast;}
     ;
 type returns [Type ast]:
     '[' INT_CONSTANT ']' type {$ast = new ArrayType(LexerHelper.lexemeToInt($INT_CONSTANT.text), $type.ast);}
@@ -67,6 +69,7 @@ type returns [Type ast]:
     | 'int' {$ast = IntType.getInstance();}
     | 'number' {$ast = NumberType.getInstance();}
     | 'char' {$ast = CharType.getInstance();}
+    | 'bool' {$ast = BooleanType.getInstance();}
     ;
 recordFields returns [List<RecordField> ast = new ArrayList<RecordField>()] locals [List<VarDefinition> vars = new ArrayList<VarDefinition>()]:
     (var_definition{$vars.addAll($var_definition.ast);})+

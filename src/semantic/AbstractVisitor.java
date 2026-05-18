@@ -218,4 +218,14 @@ public class AbstractVisitor<TP, TR> implements Visitor<TP, TR> {
     public TR visit(VoidType v, TP p) {
         return null;
     }
+
+    @Override
+    public TR visit(BooleanLiteral b, TP p) {
+        return null;
+    }
+
+    @Override
+    public TR visit(BooleanType b, TP p) {
+        return null;
+    }
 }

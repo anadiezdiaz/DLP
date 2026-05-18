@@ -165,4 +165,14 @@ public abstract class AbstractCGVisitor<TP, TR> implements Visitor<TP, TR> {
     public TR visit(VoidType v, TP p) {
         throw new UnsupportedOperationException("CG Error in VoidType");
     }
+
+    @Override
+    public TR visit(BooleanType v, TP p) {
+        throw new UnsupportedOperationException("CG Error in BooleanType");
+    }
+
+    @Override
+    public TR visit(BooleanLiteral v, TP p) {
+        throw new UnsupportedOperationException("CG Error in BooleanLiteral");
+    }
 }

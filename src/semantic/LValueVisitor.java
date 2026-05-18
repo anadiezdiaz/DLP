@@ -118,5 +118,12 @@ public class LValueVisitor<TP, TR> extends AbstractVisitor<Void, Void>{
         }
         return null;
     }
+
+    @Override
+    public Void visit(BooleanLiteral b, Void p) {
+        super.visit(b, p);
+        b.setLValue(false);
+        return null;
+    }
 }
 

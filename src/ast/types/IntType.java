@@ -39,21 +39,18 @@ public class IntType extends AbstractType {
     @Override
     public Type comparison(Locatable locatable, Type other) {
         if(other == IntType.getInstance() || other == CharType.getInstance() || other == NumberType.getInstance())
-            return this;
+            return BooleanType.getInstance();
         return super.comparison(locatable, other);
     }
 
     @Override
     public Type logic(Locatable locatable, Type other) {
-        if(other instanceof IntType){
-            return other;
-        }
-        return super.comparison(locatable, other);
+        return super.logic(locatable, other);
     }
 
     @Override
     public Type logic(Locatable locatable) {
-        return this;
+        return super.logic(locatable);
     }
 
     @Override
@@ -75,7 +72,9 @@ public class IntType extends AbstractType {
     public void mustBeBuiltIn(Locatable locatable){}
 
     @Override
-    public void mustBeLogical(Locatable locatable) {}
+    public void mustBeLogical(Locatable locatable) {
+        super.mustBeLogical(locatable);
+    }
 
     @Override
     public int getNumberOfBytes(){

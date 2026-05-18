@@ -1,10 +1,7 @@
 package codegen;
 
 import ast.expressions.*;
-import ast.types.CharType;
-import ast.types.FunctionType;
-import ast.types.IntType;
-import ast.types.NumberType;
+import ast.types.*;
 
 /*
 Para la plantilla de Value hay que incluir
@@ -200,6 +197,16 @@ public class ValueCGVisitor extends AbstractCGVisitor<Void, Void>{
     public Void visit(Variable v, Void p){
         v.accept(address, null);
         codeGenerator.load(v.getType());
+        return null;
+    }
+
+    /*
+    value[[BooleanLiteral: exp -> INT_CONSTANT]]()=
+        <pushi> exp.value
+     */
+    @Override
+    public Void visit(BooleanLiteral b, Void p) {
+        codeGenerator.push(BooleanType.getInstance(), b.getIntValue());
         return null;
     }
 
