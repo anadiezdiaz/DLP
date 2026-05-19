@@ -3,6 +3,7 @@ package ast.types;
 import ast.AbstractLocatable;
 import ast.Locatable;
 import ast.Type;
+import kotlin.jvm.internal.LocalVariableReference;
 import semantic.Visitor;
 
 import java.util.List;
@@ -111,6 +112,11 @@ public class AbstractType extends AbstractLocatable implements Type {
     @Override
     public char suffix() {
         return '0';
+    }
+
+    @Override
+    public Type ternary(Type type1, Type type2, Locatable locatable) {
+        return new ErrorType("Invalid type for ternary operation", locatable);
     }
 
     @Override

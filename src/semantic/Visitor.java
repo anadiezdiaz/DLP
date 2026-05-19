@@ -29,6 +29,7 @@ public interface Visitor<TP, TR> {
     TR visit (UnaryMinus u, TP p);
     TR visit (UnaryNot u, TP p);
     TR visit (Variable v, TP p);
+    TR visit(Ternary t, TP tp);
 
     //visit para statements
     TR visit (Assignment a, TP p);
@@ -48,4 +49,6 @@ public interface Visitor<TP, TR> {
     TR visit (RecordField r, TP p);
     TR visit (RecordType r, TP p);
     TR visit (VoidType v, TP p);
+
+
 }

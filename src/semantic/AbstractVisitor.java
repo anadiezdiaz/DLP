@@ -117,6 +117,14 @@ public class AbstractVisitor<TP, TR> implements Visitor<TP, TR> {
     }
 
     @Override
+    public TR visit(Ternary t, TP p) {
+        t.getE1().accept(this, p);
+        t.getE2().accept(this, p);
+        t.getE3().accept(this, p);
+        return null;
+    }
+
+    @Override
     public TR visit(Assignment a, TP p) {
         a.getLeft().accept(this, p);
         a.getRight().accept(this, p);

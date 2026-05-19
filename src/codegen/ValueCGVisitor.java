@@ -203,6 +203,39 @@ public class ValueCGVisitor extends AbstractCGVisitor<Void, Void>{
         return null;
     }
 
+    /*
+    value[[Ternary: exp1 -> exp2 exp3 exp4]]()=
+        String elseLabel = codeGenerator.getLabel()
+        String endLabel = codeGenerator.getLabel()
+        value[[exp2]]
+        codegenerator.convertTo(exp2.type, IntType)
+        <jz> elseLabel
+        value[[exp3]]
+        <jmp> endLabel
+        elseLabel <:>
+        value[[exp4]]
+        endLabel <:>
+     */
+    @Override
+    public Void visit(Ternary t, Void p){
+        String elseLabel = codeGenerator.getLabel();
+        String endLabel = codeGenerator.getLabel();
+
+        codeGenerator.line(t.getLine());
+        codeGenerator.comment("' * Ternary");
+
+        t.getE1().accept(this, p);
+        codeGenerator.convertTo(t.getE1().getType(), IntType.getInstance());
+        codeGenerator.jz(elseLabel);
+
+        t.getE2().accept(this, p);
+        codeGenerator.jmp(endLabel);
+        codeGenerator.label(elseLabel);
+        t.getE3().accept(this, p);
+        codeGenerator.label(endLabel);
+        return null;
+    }
+
 
 
 }

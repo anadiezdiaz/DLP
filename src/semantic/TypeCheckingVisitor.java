@@ -25,6 +25,14 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type, Void> {
     }
 
     @Override
+    public Void visit(Ternary t, Type p) {
+        super.visit(t, p);
+        IntType.getInstance().mustPromotes(t, t.getE1().getType());
+        t.setType(t.getE1().getType().ternary(t.getE2().getType(), t.getE3().getType(), t));
+        return null;
+    }
+
+    @Override
     public Void visit(ArrayAccess a, Type p) {
         super.visit(a, p);
         a.setType(a.getLeft().getType().squareBrackets(a, a.getRight().getType()));

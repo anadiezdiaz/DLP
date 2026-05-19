@@ -75,4 +75,12 @@ public class CharType extends AbstractType {
     public String toString(){
         return "CharType";
     }
+
+    @Override
+    public Type ternary(Type type1, Type type2, Locatable locatable){
+        if(type1==type2){
+            return type1;
+        }
+        return super.ternary(type1, type2, locatable);
+    }
 }

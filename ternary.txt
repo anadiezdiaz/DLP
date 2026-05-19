@@ -1,0 +1,25 @@
+function p(): void {}
+
+function main(): void {
+    let i, j, h, max : int;
+    let d : number;
+    i = 'a';
+    d = i > 0 ? 1.1 : 0.1;
+    log d;                      //muestra 1.1
+    log d > 0 ? 'G' : 'L';      //muestra G
+    j = 0;
+    h = 100;
+    max = i > j ? (i > h ? i : h) : (j > h ? j : h);
+    log max;                                                //muestra 100
+    log i > 90 ? 'A' : i > 80 ? 'B' : 'C';                  //muestra A
+
+    //error tipo del primer operando tiene que ser promocionable (subtipo de) int
+    //log 3.3 ? 'a' : 'b';
+
+    //error tipo de 1.1 != tipo de 'a'
+    //d = i > 0 ? 1.1 : 'a';
+
+    //error void no es un tipo valido para el segundo y tercer operando
+    //log 0 ? p() : p();
+
+}

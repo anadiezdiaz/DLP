@@ -20,4 +20,5 @@ public interface Type extends ASTNode {
     Type parenthesis(Locatable locatable, List<Type> others);
     int getNumberOfBytes();
     char suffix();
+    Type ternary(Type type1, Type type2, Locatable locatable);
 }
