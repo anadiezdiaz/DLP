@@ -37,6 +37,8 @@ public interface Visitor<TP, TR> {
     TR visit (LogStatement l, TP p);
     TR visit (ReturnStatement r, TP p);
     TR visit (WhileStatement w, TP p);
+    TR visit (SwitchStatement s, TP p);
+    TR visit (BreakStatement b, TP p);
 
     //visit para types
     TR visit (ArrayType a, TP p);

@@ -102,6 +102,16 @@ public abstract class AbstractCGVisitor<TP, TR> implements Visitor<TP, TR> {
     }
 
     @Override
+    public TR visit(SwitchStatement s, TP p) {
+        throw new UnsupportedOperationException("CG Error in SwitchStatement");
+    }
+
+    @Override
+    public TR visit(BreakStatement b, TP p) {
+        throw new UnsupportedOperationException("CG Error in BreakStatement");
+    }
+
+    @Override
     public TR visit(InputStatement i, TP p) {
         throw new UnsupportedOperationException("CG Error in InputStatement");
     }

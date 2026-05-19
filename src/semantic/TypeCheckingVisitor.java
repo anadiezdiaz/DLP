@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TypeCheckingVisitor extends AbstractVisitor<Type, Void> {
+    private int breakDepth = 0;
 
     @Override
     public Void visit(FuncDefinition f, Type p) {
@@ -154,8 +155,36 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type, Void> {
 
     @Override
     public Void visit(WhileStatement w, Type p) {
+        breakDepth++;
         super.visit(w, p);
+        breakDepth--;
         w.getExpression().getType().mustBeLogical(w);
+        return null;
+    }
+
+    @Override
+    public Void visit(SwitchStatement s, Type p) {
+        breakDepth++;
+        super.visit(s, p);
+        breakDepth--;
+
+        Type switchType = s.getExpression().getType();
+        if (switchType instanceof ErrorType) {
+            return null;
+        }
+
+        switchType.mustBeBuiltIn(s);
+        for (SwitchCase sc : s.getCases()) {
+            switchType.mustPromotes(sc.getExpression(), sc.getExpression().getType());
+        }
+        return null;
+    }
+
+    @Override
+    public Void visit(BreakStatement b, Type p) {
+        if (breakDepth == 0) {
+            new ErrorType(b.getLine(), b.getColumn(), "Break statement outside switch or while");
+        }
         return null;
     }
 }

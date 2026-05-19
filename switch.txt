@@ -1,0 +1,27 @@
+function main(): void {
+    let i: int;
+
+    i = 0;
+
+    while (i < 5) {
+        switch (i) {
+            case 0:
+                log 'c', 'e', 'r', 'o', '\n';
+                break;
+
+            case 1:
+                log 'u', 'n', 'o', '\n';
+                break;
+
+            case 2:
+                log 'd', 'o', 's', '\n';
+                break;
+
+            default:
+                log 'o', 't', 'r', 'o', '\n';
+                break;
+        }
+
+        i = i + 1;
+    }
+}

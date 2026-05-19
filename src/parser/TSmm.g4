@@ -89,7 +89,17 @@ statement returns [List<Statement> ast = new ArrayList<Statement>();] locals [Li
     | 'if' '(' e1=expression ')' b1=block ('else' b2=block {$elseList = $b2.ast;})? {$ast.add(new IfElseStatement($e1.ast.getLine(), $e1.ast.getColumn(), $e1.ast, $b1.ast, $elseList));}
     | 'while' '(' e1=expression ')' b1=block {$ast.add(new WhileStatement($e1.ast.getLine(), $e1.ast.getColumn(), $e1.ast, $b1.ast));}
     | 'return' e1=expression ';' {$ast.add(new ReturnStatement($e1.ast.getLine(), $e1.ast.getColumn(), $e1.ast));}
+    | br='break' ';' {$ast.add(new BreakStatement($br.getLine(), $br.getCharPositionInLine()+1));}
     | f=func_invocation ';' {$ast.add($f.ast);}
+    | sw='switch' '(' e1=expression ')' '{' s1=switchbody '}'
+      {$ast.add(new SwitchStatement($sw.getLine(), $sw.getCharPositionInLine()+1, $e1.ast, $s1.cases, $s1.defaultBody));}
+    ;
+switchbody returns [List<SwitchCase> cases = new ArrayList<SwitchCase>(), List<Statement> defaultBody = new ArrayList<Statement>()]:
+    (c=switchcase {$cases.add($c.ast);})* ('default' ':' (statement {$defaultBody.addAll($statement.ast);})*)?
+    ;
+switchcase returns [SwitchCase ast] locals [List<Statement> body = new ArrayList<Statement>()]:
+    'case' e1=expression ':' (statement {$body.addAll($statement.ast);})*
+    {$ast = new SwitchCase($e1.ast, $body);}
     ;
 func_invocation returns [FunctionInvocation ast] locals [List<Expression> params = new ArrayList<Expression>()]:
     ID  '(' (expression_list{$params=$expression_list.ast;})? ')'

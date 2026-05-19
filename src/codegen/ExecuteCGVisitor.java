@@ -12,6 +12,11 @@ import ast.types.FunctionType;
 import ast.types.IntType;
 import ast.types.VoidType;
 
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Deque;
+import java.util.List;
+
 /*
 Para la plantilla de Execution hay que incluir:
 	Statements
@@ -22,6 +27,7 @@ Para la plantilla de Execution hay que incluir:
 public class ExecuteCGVisitor extends AbstractCGVisitor<FuncDefinition, Void>{
     private AddressCGVisitor address;
     private ValueCGVisitor value;
+    private Deque<String> breakLabels = new ArrayDeque<>();
 
     public ExecuteCGVisitor(CodeGenerator codeGenerator){
         this.codeGenerator = codeGenerator;
@@ -253,6 +259,7 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<FuncDefinition, Void>{
     public Void visit(WhileStatement w , FuncDefinition f){
         String condLabel = codeGenerator.getLabel();
         String endLabel = codeGenerator.getLabel();
+        breakLabels.push(endLabel);
 
         codeGenerator.line(w.getLine());
         codeGenerator.comment("' * While");
@@ -272,7 +279,72 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<FuncDefinition, Void>{
 
         codeGenerator.jmp(condLabel);
         codeGenerator.label(endLabel);
+        breakLabels.pop();
 
+        return null;
+    }
+
+    /*
+    execute[[Switch: stmnt1 -> expr stmnt2*]]()=
+        String condLabel = codeGenerator.getLabel()
+        String endLabel = codeGenerator.getLabel()
+        condLabel <:>
+        value[[expr]]()
+        codeGenerator.convertTo(expr.type, IntType)
+        <jz> endLabel
+        stmnt2*.forEach(s->execute[[s]]())
+        <jmp> condLabel
+        endLabel <:>
+     */
+    @Override
+    public Void visit(SwitchStatement s , FuncDefinition f){
+        String endLabel = codeGenerator.getLabel();
+        String defaultLabel = s.getDefaultBody().isEmpty() ? endLabel : codeGenerator.getLabel();
+        List<String> caseLabels = new ArrayList<>();
+        for (SwitchCase ignored : s.getCases()) {
+            caseLabels.add(codeGenerator.getLabel());
+        }
+
+        codeGenerator.line(s.getLine());
+        codeGenerator.comment("' * Switch");
+
+        for (int i = 0; i < s.getCases().size(); i++) {
+            SwitchCase sc = s.getCases().get(i);
+            s.getExpression().accept(value, null);
+            sc.getExpression().accept(value, null);
+            codeGenerator.convertTo(sc.getExpression().getType(), s.getExpression().getType());
+            codeGenerator.comparison(s.getExpression().getType(), "==");
+            codeGenerator.jnz(caseLabels.get(i));
+        }
+
+        codeGenerator.jmp(defaultLabel);
+        breakLabels.push(endLabel);
+
+        for (int i = 0; i < s.getCases().size(); i++) {
+            codeGenerator.label(caseLabels.get(i));
+            for(Statement st : s.getCases().get(i).getBody()){
+                st.accept(this, f);
+            }
+        }
+
+        if (!s.getDefaultBody().isEmpty()) {
+            codeGenerator.label(defaultLabel);
+            for(Statement st : s.getDefaultBody()){
+                st.accept(this, f);
+            }
+        }
+
+        codeGenerator.label(endLabel);
+        breakLabels.pop();
+
+        return null;
+    }
+
+    @Override
+    public Void visit(BreakStatement b, FuncDefinition f) {
+        codeGenerator.line(b.getLine());
+        codeGenerator.comment("' * Break");
+        codeGenerator.jmp(breakLabels.peek());
         return null;
     }
 

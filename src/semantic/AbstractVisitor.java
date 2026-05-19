@@ -167,6 +167,26 @@ public class AbstractVisitor<TP, TR> implements Visitor<TP, TR> {
     }
 
     @Override
+    public TR visit(SwitchStatement s, TP p) {
+        s.getExpression().accept(this, p);
+        for(SwitchCase sc : s.getCases()){
+            sc.getExpression().accept(this, p);
+            for(Statement st : sc.getBody()){
+                st.accept(this, p);
+            }
+        }
+        for(Statement st : s.getDefaultBody()){
+            st.accept(this, p);
+        }
+        return null;
+    }
+
+    @Override
+    public TR visit(BreakStatement b, TP p) {
+        return null;
+    }
+
+    @Override
     public TR visit(ArrayType a, TP p) {
         a.getType().accept(this, p);
         return null;
