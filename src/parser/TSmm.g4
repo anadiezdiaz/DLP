@@ -59,6 +59,7 @@ expression returns [Expression ast]:
     | INT_CONSTANT {$ast = new IntLiteral($INT_CONSTANT.getLine(), $INT_CONSTANT.getCharPositionInLine()+1, LexerHelper.lexemeToInt($INT_CONSTANT.text));}
     | CHAR_CONSTANT {$ast = new CharLiteral($CHAR_CONSTANT.getLine(), $CHAR_CONSTANT.getCharPositionInLine()+1, LexerHelper.lexemeToChar($CHAR_CONSTANT.text));}
     | REAL_CONSTANT {$ast = new NumberLiteral($REAL_CONSTANT.getLine(), $REAL_CONSTANT.getCharPositionInLine()+1, LexerHelper.lexemeToReal($REAL_CONSTANT.text));}
+    | 'len' '(' e1=expression ')' {$ast = new Len($e1.ast.getLine(), $e1.ast.getColumn(), $e1.ast);}
     | f=func_invocation {$ast = $f.ast;}
     ;
 type returns [Type ast]:

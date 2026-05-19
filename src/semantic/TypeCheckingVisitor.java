@@ -113,6 +113,21 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type, Void> {
     }
 
     @Override
+    public Void visit(Len l, Type p) {
+        super.visit(l, p);
+
+        if (l.getExpression().getType() instanceof ArrayType) {
+            l.setType(IntType.getInstance());
+        } else if (l.getExpression().getType() instanceof ErrorType) {
+            l.setType(l.getExpression().getType());
+        } else {
+            l.setType(new ErrorType("len only allowed for arrays", l));
+        }
+
+        return null;
+    }
+
+    @Override
     public Void visit(Assignment a, Type p) {
         super.visit(a, p);
         a.getLeft().getType().mustPromotes(a, a.getRight().getType());

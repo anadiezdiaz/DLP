@@ -100,6 +100,13 @@ public class LValueVisitor<TP, TR> extends AbstractVisitor<Void, Void>{
     }
 
     @Override
+    public Void visit(Len l, Void p) {
+        super.visit(l, p);
+        l.setLValue(false);
+        return null;
+    }
+
+    @Override
     public Void visit(Assignment a, Void p) {
         super.visit(a, p);
         if (!a.getLeft().getLValue()) {

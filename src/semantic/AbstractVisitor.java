@@ -117,6 +117,12 @@ public class AbstractVisitor<TP, TR> implements Visitor<TP, TR> {
     }
 
     @Override
+    public TR visit(Len l, TP p) {
+        l.getExpression().accept(this, p);
+        return null;
+    }
+
+    @Override
     public TR visit(Assignment a, TP p) {
         a.getLeft().accept(this, p);
         a.getRight().accept(this, p);
