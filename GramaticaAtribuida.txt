@@ -1,0 +1,90 @@
+GRAMATICAS ATRIBUIDAS
+1.
+    G:
+        (1): Arithmetic: exp1 -> exp2 ('+'|'-'|'*'|'/'|'%') exp3
+        (2): ArrayAccess: exp1 -> exp2 exp3
+        (3): Cast: exp1 -> type exp2
+        (4): CharLiteral: exp -> CHAR_CONSTANT
+        (5): Comparison: exp1 -> exp2 ('>'|'>='|'<'|'<='|'!='|'==') exp3
+        (6): FieldAccess: exp1 -> exp2 ID
+        (7): FunctionInvocation: exp1 -> exp2 exp3*
+        (8): IntLiteral: exp -> INT_CONSTANT
+        (9): Logic: exp1 -> exp2 ('&&'|'||') exp3
+        (10): NumberLiteral: exp -> REAL_CONSTANT
+        (11): UnaryMinus: exp1 -> exp2
+        (12): UnaryNot: exp1 -> exp2
+        (13): Variable: exp1 -> ID
+        (14): Assignment: stmnt1 -> exp1 exp2
+        (15): IfElseStatement: stmnt1 -> exp stmnt2* stmnt3*
+        (16): InputStatement: stmnt -> exp*
+        (17): LogStatement: stmnt -> exp*
+        (18): ReturnStatement: stmnt -> exp
+        (19): WhileStatement: stmnt1 -> exp stmnt2*
+        (20): FuncDefinition: def -> ID type stmnt*
+
+    A:
+        { expression.type } Dominio Type
+
+    R:
+        (1): Arithmetic: exp1.type = exp2.type.arithmetic(exp3.type)
+        (2): ArrayAccess: exp1.type = exp2.type.squareBrackets(exp3.type)
+        (3): Cast: exp1.type = exp2.type.canBeCastTo(type)
+        (4): CharLiteral: exp.type = CharType
+        (5): Comparison: exp1.type = exp2.type.comparison(exp3.type)
+        (6): FieldAccess: exp1.type = exp2.type.dot(ID)
+        (7): FunctionInvocation: exp1.type = exp2.type.parenthesis(exp3.type)
+        (8): IntLiteral: exp.type = IntType
+        (9): Logic: exp1.type = exp2.type.logic(exp3.type)
+        (10): NumberLiteral: exp.type = NumberType
+        (11): UnaryMinus: exp1.type = exp2.type.arithmetic()
+        (12): UnaryNot: exp1.type = exp2.type.logic()
+        (13): Variable: exp1.type = exp1.definition.type
+        (14): Assignment: exp1.type.mustPromotes(exp2.type)
+        (15): IfElseStatement: exp1.type.mustBeLogical()
+        (16): InputStatement: foreach(exp in exp*) { exp.type.mustBeBuiltIn() }
+        (17): LogStatement: foreach(exp in exp*) { exp.type.mustBeBuiltIn() }
+        (18): ReturnStatement: ((FunctionType) p).returnType.mustPromotes(exp.type)
+        (19): WhileStatement: exp1.type.mustBeLogical()
+        (20): FuncDefinition: foreach(stmnt in stmnt*) { visit(stmnt, functionType) }
+
+2.
+    G:
+        (1): VarDefinition: definition -> ID type
+        (2): FuncDefinition: definition -> ID statement* type
+        (3): FunctionType: type -> varDefinition* type
+        (4): RecordType: type -> recordfields*
+        (5): RecordField: recordfield -> ID type
+
+    A:
+        { varDefinition.offset, recordField.offset } Dominio Int
+
+    R:
+        (1): VarDefinition:
+            if (definition.scope == 0) {
+                varDefinition.offset = byteSum;
+                byteSum += type.numberOfBytes();
+            } else if (!varDefinition.isParam) {
+                byteSum += type.numberOfBytes();
+                varDefinition.offset = -byteSum;
+            }
+
+        (2): FunctionDefinition:
+            previousByteSum = byteSum;
+            visit(functionType);
+            byteSum = 0;
+            foreach(statement in statements) {
+                visit(statement);
+            }
+            byteSum = previousByteSum;
+
+        (3): FunctionType:
+            paramOffset = 4;
+            for (i = parameters.size() - 1; i >= 0; i--) {
+                parameters[i].isParam = true;
+                parameters[i].offset = paramOffset;
+                paramOffset += parameters[i].type.numberOfBytes();
+            }
+
+        (4): RecordType:
+            sf.offset = totalFieldSize;
+            totalFieldSize += sf.type.numberOfBytes();
