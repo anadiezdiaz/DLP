@@ -102,6 +102,11 @@ public abstract class AbstractCGVisitor<TP, TR> implements Visitor<TP, TR> {
     }
 
     @Override
+    public TR visit(CompoundAssignment a, TP p) {
+        throw new UnsupportedOperationException("CG Error in CompoundAssignment");
+    }
+
+    @Override
     public TR visit(InputStatement i, TP p) {
         throw new UnsupportedOperationException("CG Error in InputStatement");
     }

@@ -85,6 +85,17 @@ recordFields returns [List<RecordField> ast = new ArrayList<RecordField>()] loca
 statement returns [List<Statement> ast = new ArrayList<Statement>();] locals [List<Statement> elseList = new ArrayList<Statement>()]:
     log='log' expression_list ';' {$ast.add(new LogStatement($log.getLine(), $log.getCharPositionInLine()+1,$expression_list.ast));}
     | input='input' expression_list ';' {$ast.add(new InputStatement($input.getLine(), $input.getCharPositionInLine()+1,$expression_list.ast));}
+    | e1=expression OP=('+='|'-='|'*='|'/='|'%=') e2=expression ';'
+         {
+             String op = $OP.text.substring(0, 1);
+             $ast.add(new CompoundAssignment(
+                 $e1.ast.getLine(),
+                 $e1.ast.getColumn(),
+                 $e1.ast,
+                 $e2.ast,
+                 op
+             ));
+         }
     | e1=expression '=' e2=expression ';' {$ast.add(new Assignment($e1.ast.getLine(), $e1.ast.getColumn(), $e1.ast, $e2.ast));}
     | 'if' '(' e1=expression ')' b1=block ('else' b2=block {$elseList = $b2.ast;})? {$ast.add(new IfElseStatement($e1.ast.getLine(), $e1.ast.getColumn(), $e1.ast, $b1.ast, $elseList));}
     | 'while' '(' e1=expression ')' b1=block {$ast.add(new WhileStatement($e1.ast.getLine(), $e1.ast.getColumn(), $e1.ast, $b1.ast));}

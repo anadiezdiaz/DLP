@@ -113,6 +113,17 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type, Void> {
     }
 
     @Override
+    public Void visit(CompoundAssignment a, Type p) {
+        super.visit(a, p);
+
+        Type operationType = a.getLeft().getType().arithmetic(a, a.getRight().getType());
+        a.setOperationType(operationType);
+
+        a.getLeft().getType().mustPromotes(a, operationType);
+        return null;
+    }
+
+    @Override
     public Void visit(Assignment a, Type p) {
         super.visit(a, p);
         a.getLeft().getType().mustPromotes(a, a.getRight().getType());

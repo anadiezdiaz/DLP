@@ -1,0 +1,20 @@
+function main(): void {
+
+    let x : int;
+    let y : int;
+
+    x = 10;
+    y = 5;
+
+    x += y;
+    log x;
+
+    x -= 3;
+    log x;
+
+    x *= 2;
+    log x;
+
+    x /= 4;
+    log x;
+}

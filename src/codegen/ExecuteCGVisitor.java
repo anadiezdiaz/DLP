@@ -51,6 +51,44 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<FuncDefinition, Void>{
     }
 
     /*
+    execute[[CompoundAssignment : statement -> exp1 op exp2]]() =
+        address[[exp1]]
+        <dup>i
+        <load>exp1.type.suffix()
+
+        cg.convertTo(exp1.type, compoundAssignment.operationType)
+
+        value[[exp2]]
+        cg.convertTo(exp2.type, compoundAssignment.operationType)
+
+        <op>compoundAssignment.operationType.suffix()
+
+        cg.convertTo(compoundAssignment.operationType, exp1.type)
+
+        <store>exp1.type.suffix()
+    */
+    @Override
+    public Void visit(CompoundAssignment a, FuncDefinition f) {
+        codeGenerator.line(a.getLine());
+        codeGenerator.comment("' * Compound Assignment");
+
+        a.getLeft().accept(address, null);                 // addr
+        codeGenerator.dup(IntType.getInstance());          // addr addr
+
+        codeGenerator.load(a.getLeft().getType());         // addr oldValue
+        codeGenerator.convertTo(a.getLeft().getType(), a.getOperationType());
+
+        a.getRight().accept(value, null);                  // addr oldValue rhs
+        codeGenerator.convertTo(a.getRight().getType(), a.getOperationType());
+
+        codeGenerator.arithmetic(a.getOperationType(), a.getOperator());
+        codeGenerator.convertTo(a.getOperationType(), a.getLeft().getType());
+
+        codeGenerator.store(a.getLeft().getType());
+        return null;
+    }
+
+    /*
     execute[[InputStatement: stmnt -> exp*]]() =
         for(Expression e : exp*){
             address[[e]]()
