@@ -1,0 +1,9 @@
+function main(): void {
+    let a : int;
+    let b : int;
+    a = 2;
+    b = 1;
+    a = b = 0;
+    log a;
+    log b;
+}

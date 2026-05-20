@@ -82,10 +82,21 @@ recordFields returns [List<RecordField> ast = new ArrayList<RecordField>()] loca
         }
     }
     ;
-statement returns [List<Statement> ast = new ArrayList<Statement>();] locals [List<Statement> elseList = new ArrayList<Statement>()]:
+statement returns [List<Statement> ast = new ArrayList<Statement>();] locals [List<Statement> elseList = new ArrayList<Statement>(), List<Expression> assignmentExpressions = new ArrayList<Expression>()]:
     log='log' expression_list ';' {$ast.add(new LogStatement($log.getLine(), $log.getCharPositionInLine()+1,$expression_list.ast));}
     | input='input' expression_list ';' {$ast.add(new InputStatement($input.getLine(), $input.getCharPositionInLine()+1,$expression_list.ast));}
-    | e1=expression '=' e2=expression ';' {$ast.add(new Assignment($e1.ast.getLine(), $e1.ast.getColumn(), $e1.ast, $e2.ast));}
+    | e1=expression { $assignmentExpressions.add($e1.ast); }
+            ('=' e2=expression { $assignmentExpressions.add($e2.ast); })+
+            ';'
+            {
+                Expression rhs = $assignmentExpressions.get($assignmentExpressions.size() - 1);
+
+                for (int i = $assignmentExpressions.size() - 2; i >= 0; i--) {
+                    Expression lhs = $assignmentExpressions.get(i);
+                    $ast.add(new Assignment(lhs.getLine(), lhs.getColumn(), lhs, rhs));
+                    rhs = lhs;
+                }
+            }
     | 'if' '(' e1=expression ')' b1=block ('else' b2=block {$elseList = $b2.ast;})? {$ast.add(new IfElseStatement($e1.ast.getLine(), $e1.ast.getColumn(), $e1.ast, $b1.ast, $elseList));}
     | 'while' '(' e1=expression ')' b1=block {$ast.add(new WhileStatement($e1.ast.getLine(), $e1.ast.getColumn(), $e1.ast, $b1.ast));}
     | 'return' e1=expression ';' {$ast.add(new ReturnStatement($e1.ast.getLine(), $e1.ast.getColumn(), $e1.ast));}
