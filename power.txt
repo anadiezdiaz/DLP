@@ -1,0 +1,6 @@
+function main(): void{
+    let a: int;
+    a = 3;
+    a = a ^ 3;
+    log a;
+}

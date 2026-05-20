@@ -112,6 +112,12 @@ public class AbstractVisitor<TP, TR> implements Visitor<TP, TR> {
     }
 
     @Override
+    public TR visit(Power po, TP p){
+        po.getExpression().accept(this, p);
+        return null;
+    }
+
+    @Override
     public TR visit(Variable v, TP p) {
         return null;
     }

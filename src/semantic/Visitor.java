@@ -29,6 +29,8 @@ public interface Visitor<TP, TR> {
     TR visit (UnaryMinus u, TP p);
     TR visit (UnaryNot u, TP p);
     TR visit (Variable v, TP p);
+    TR visit (Power po, TP p);
+
 
     //visit para statements
     TR visit (Assignment a, TP p);

@@ -109,6 +109,13 @@ public class LValueVisitor<TP, TR> extends AbstractVisitor<Void, Void>{
     }
 
     @Override
+    public Void visit(Power p, Void param) {
+        super.visit(p, param);
+        p.setLValue(false);
+        return null;
+    }
+
+    @Override
     public Void visit(InputStatement i, Void p) {
         super.visit(i, p);
         for(Expression e : i.getExpressions()){

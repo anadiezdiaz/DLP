@@ -57,6 +57,46 @@ public class ValueCGVisitor extends AbstractCGVisitor<Void, Void>{
     }
 
     /*
+    value[[Power : exp1 -> exp2 ^ INT_CONSTANT]]() =
+        value[[exp2]]
+        cg.convertTo(exp2.type, exp1.type)
+
+        if exponent == 0:
+            <pop>exp1.type.suffix()
+            <pushi> 1
+            cg.convertTo(IntType, exp1.type)
+
+        else:
+            repeat exponent - 1 times:
+                <dup>exp1.type.suffix()
+
+            repeat exponent - 1 times:
+                <mul>exp1.type.suffix()
+    */
+    @Override
+    public Void visit(Power p, Void param) {
+        p.getExpression().accept(this, param);
+        codeGenerator.convertTo(p.getExpression().getType(), p.getType());
+
+        if (p.getExponent() == 0) {
+            codeGenerator.pop(p.getType());
+            codeGenerator.push(IntType.getInstance(), 1);
+            codeGenerator.convertTo(IntType.getInstance(), p.getType());
+            return null;
+        }
+
+        for (int i = 1; i < p.getExponent(); i++) {
+            codeGenerator.dup(p.getType());
+        }
+
+        for (int i = 1; i < p.getExponent(); i++) {
+            codeGenerator.mul(p.getType());
+        }
+
+        return null;
+    }
+
+    /*
     value[[Cast: exp1 -> type exp2]]()=
         value[[exp2]]()
         codeGenerator.convertTo(exp2.type, type)

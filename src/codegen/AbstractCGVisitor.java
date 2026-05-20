@@ -165,4 +165,9 @@ public abstract class AbstractCGVisitor<TP, TR> implements Visitor<TP, TR> {
     public TR visit(VoidType v, TP p) {
         throw new UnsupportedOperationException("CG Error in VoidType");
     }
+
+    @Override
+    public TR visit(Power po, TP p) {
+        throw new UnsupportedOperationException("CG Error in Power");
+    }
 }
