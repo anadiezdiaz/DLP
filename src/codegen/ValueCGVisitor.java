@@ -45,6 +45,22 @@ public class ValueCGVisitor extends AbstractCGVisitor<Void, Void>{
     }
 
     /*
+    value[[Square : exp1 -> exp2 ^ 2]]() =
+        value[[exp2]]
+        cg.convertTo(exp2.type, exp1.type)
+        <dup>exp1.type.suffix()
+        <mul>exp1.type.suffix()
+    */
+    @Override
+    public Void visit(Square s, Void p) {
+        s.getExpression().accept(this, p);
+        codeGenerator.convertTo(s.getExpression().getType(), s.getType());
+        codeGenerator.dup(s.getType());
+        codeGenerator.mul(s.getType());
+        return null;
+    }
+
+    /*
     value[[ArrayAccess: exp1 -> exp2 exp3]]()=
         address[[exp1]]()
         <load> exp1.type.suffix

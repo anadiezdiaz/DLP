@@ -48,6 +48,15 @@ expression returns [Expression ast]:
     '(' e1=expression ')' {$ast = $e1.ast;}
     | e1=expression '[' e2=expression ']' {$ast = new ArrayAccess($e1.ast.getLine(), $e2.ast.getColumn(), $e1.ast, $e2.ast);}
     | e1=expression '.' ID {$ast = new FieldAccess($e1.ast.getLine(), $e1.ast.getColumn(), $e1.ast, $ID.text);}
+    | e1=expression '^' exp=INT_CONSTANT
+    {
+        if (LexerHelper.lexemeToInt($exp.text) != 2) {
+            new ErrorType($exp.getLine(), $exp.getCharPositionInLine()+1,
+                "Only square exponent (^2) is supported");
+        }
+
+        $ast = new Square($e1.ast.getLine(), $e1.ast.getColumn(), $e1.ast);
+    }
     | '(' e1=expression 'as' t1=type ')' {$ast = new Cast($e1.ast.getLine(), $e1.ast.getColumn(), $e1.ast, $t1.ast);}
     | '-' e1=expression {$ast = new UnaryMinus($e1.ast.getLine(), $e1.ast.getColumn(), $e1.ast);}
     | '!' e1=expression {$ast = new UnaryNot($e1.ast.getLine(), $e1.ast.getColumn(), $e1.ast);}

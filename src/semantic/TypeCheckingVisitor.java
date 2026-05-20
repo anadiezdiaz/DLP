@@ -120,6 +120,13 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type, Void> {
     }
 
     @Override
+    public Void visit(Square s, Type p) {
+        super.visit(s, p);
+        s.setType(s.getExpression().getType().arithmetic(s));
+        return null;
+    }
+
+    @Override
     public Void visit(IfElseStatement i, Type p) {
         super.visit(i, p);
         i.getExpression().getType().mustBeLogical(i);

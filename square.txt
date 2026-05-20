@@ -1,0 +1,8 @@
+function main(): void {
+    let i : int;
+    i = 2;
+    i = i ^ 2;
+    log i;
+    i = i ^ 2;
+    log i;
+}

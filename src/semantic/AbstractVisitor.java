@@ -124,6 +124,12 @@ public class AbstractVisitor<TP, TR> implements Visitor<TP, TR> {
     }
 
     @Override
+    public TR visit(Square s, TP p) {
+        s.getExpression().accept(this, p);
+        return null;
+    }
+
+    @Override
     public TR visit(IfElseStatement i, TP p) {
         i.getExpression().accept(this, p);
         for(Statement s : i.getIfBody()){
